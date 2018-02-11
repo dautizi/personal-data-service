@@ -1,0 +1,60 @@
+
+
+                        `-/osyyhyyso+:.        `MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNh+`
+                    .+ymMMMMMMMMMMMMMMMNds:    `MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN-
+                 `omMMMMMMmhysooooshdNMMMMMNy:                                                 /MMMm
+               .yMMMMMdo:`            ./yNMMMMm/                                               `MMMN
+              oMMMMNo.                    /hMMMMd-                                             `MMMN
+            .dMMMNo`                        -dMMMM+                                            `MMMN
+           .NMMMd.                            oMMMMo     /++++++++++++++++++++++++++++++.      `MMMN
+          `mMMMd`                              /MMMM/    hMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM/      `MMMN
+          oMMMN`                                sMMMN`   sdddddddddddddddddddddddddddddd:      `MMMN
+          NMMMo                                 `NMMM+                                         `MMMN
+         .MMMM-                                  hMMMy                                         `MMMN
+         -MMMM.                                  yMMMh                                         `MMMN
+         `MMMM/                                  mMMMs                                         `MMMN
+          hMMMh                                 :MMMM-   :++++++++++++++++++++++++++++++.      `MMMN
+          -MMMM+                               `mMMMh    hMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM/      `MMMN
+           oMMMM+                             `dMMMm`    ymmmmmmmmmmmmmmmmmmmmmmmmmmmmmm/      `MMMN
+            oMMMMy`                          :NMMMm.                                           `MMMN
+             :NMMMNo`                      :hMMMMy`                                            `MMMN
+              `sMMMMMy:`                .omMMMMm:                                              `MMMN
+                .sNMMMMMds+:.`   `.-/oyNMMMMMh/                                                `MMMN
+                   :ymMMMMMMMMMMMMMMMMMMMMd+.                                                  `MMMN
+                    `-omMMMMMMMMMMMMMMMMh/.                      ommmmmmmmmmmmmmmmmmmmmm/      `MMMN
+                .+ymMMMMMMMMMMMMMMMMMMMMMMMNho:                  sMMMMMMMMMMMMMMMMMMMMMM/      `MMMN
+             -smMMMMMMmhs+/-..```..-:/oydNMMMMMNh/`              -//////////////////////.      `MMMN
+          `+mMMMMMdo:`                    -+yNMMMMNy-                                          `MMMN
+        `sNMMMMh/`                            -sNMMMMd:                                        `MMMN
+       oNMMMNs.                                  /dMMMMh.                                      `MMMN
+     -mMMMMs`                                      :mMMMMo                                     `MMMN
+    /MMMMd.                                          +MMMMd`                                   `MMMN
+   oMMMMo                                             -mMMMm.                                  `MMMN
+  +MMMM/                                               `dMMMm`                                 `MMMN
+ -MMMM+                                                 `mMMMh                                 `MMMN
+ mMMMh                                                   -MMMM/                                `MMMN
+/MMMM.                                                    yMMMd                                `MMMN
+hMMMh                                                     :MMMM.                               /MMMd
+NMMMo                                                      MMMM/          oMMMMMMMMMMMMMMMMMMMMMMMN-
+yhhh:                                                      yhhh:          oMMMMMMMMMMMMMMMMMMMMNh+`
+
+
+
+██████╗ ███████╗██████╗ ███████╗ ██████╗ ███╗   ██╗ █████╗ ██╗         ██████╗  █████╗ ████████╗ █████╗
+██╔══██╗██╔════╝██╔══██╗██╔════╝██╔═══██╗████╗  ██║██╔══██╗██║         ██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗
+██████╔╝█████╗  ██████╔╝███████╗██║   ██║██╔██╗ ██║███████║██║         ██║  ██║███████║   ██║   ███████║
+██╔═══╝ ██╔══╝  ██╔══██╗╚════██║██║   ██║██║╚██╗██║██╔══██║██║         ██║  ██║██╔══██║   ██║   ██╔══██║
+██║     ███████╗██║  ██║███████║╚██████╔╝██║ ╚████║██║  ██║███████╗    ██████╔╝██║  ██║   ██║   ██║  ██║
+╚═╝     ╚══════╝╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝
+
+                        ███████╗███████╗██████╗ ██╗   ██╗██╗ ██████╗███████╗
+                        ██╔════╝██╔════╝██╔══██╗██║   ██║██║██╔════╝██╔════╝
+                        ███████╗█████╗  ██████╔╝██║   ██║██║██║     █████╗
+                        ╚════██║██╔══╝  ██╔══██╗╚██╗ ██╔╝██║██║     ██╔══╝
+                        ███████║███████╗██║  ██║ ╚████╔╝ ██║╚██████╗███████╗
+                        ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝ ╚═════╝╚══════╝
+
+
+                            || by Daniele Autizi ||
+
+${AnsiColor.BRIGHT_BLUE}:: Running Spring Boot ${spring-boot.version} ::${AnsiColor.DEFAULT}

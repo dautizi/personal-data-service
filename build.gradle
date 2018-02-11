@@ -1,0 +1,50 @@
+buildscript {
+    ext {
+        springBootVersion = "1.5.9.RELEASE"
+        lombokVersion = "1.16.20"
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+plugins {
+    id "net.ltgt.apt" version "0.10"
+}
+
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: "groovy"
+apply plugin: "io.spring.dependency-management"
+apply plugin: "org.springframework.boot"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+//---------------------------------
+// Configurations
+//---------------------------------
+configurations {
+    // Providing a separate configuration for Lombok itself
+    lombok
+}
+
+dependencies {
+    compile("org.projectlombok:lombok:${lombokVersion}")
+    apt("org.projectlombok:lombok:${lombokVersion}")
+
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    compile("org.springframework.boot:spring-boot-starter-web")
+
+    compile("org.apache.commons:commons-math3:3.6.1")
+    compile("com.google.guava:guava:24.0-jre")
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
