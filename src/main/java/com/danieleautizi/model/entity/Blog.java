@@ -11,20 +11,16 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Document
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Adventure {
+public class Blog {
 
     @Id
     private ObjectId id;
-
-    @Indexed
-    private String articleUniquePath;
 
     private String title;
     private String category;
@@ -32,29 +28,26 @@ public class Adventure {
     private String tag;
 
     private String keywords;
+
     private String cssClass;
     private String image;
     private String icon;
     private String altImage;
     private String articleUrl;
+    private String staticUrl;
     private String description;
 
-    @Indexed
-    private String adventureType;
-
-    private String staticUrl;
+    private String blogType;
     private String viewType;
     private String mediaCssClass;
-
-    @Indexed
-    private boolean active;
-    @Indexed
-    private int prg;
 
     @Indexed
     private LocalDateTime datetime;
     @Indexed
     private LocalDateTime lastUpdate;
 
-    private List<ObjectId> adventureMediaIds;
+    @Indexed
+    private boolean active;
+    @Indexed
+    private int prg;
 }

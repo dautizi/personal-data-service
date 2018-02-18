@@ -18,33 +18,20 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Adventure {
+public class Article {
 
     @Id
     private ObjectId id;
 
-    @Indexed
-    private String articleUniquePath;
-
-    private String title;
-    private String category;
-    private String section;
-    private String tag;
-
-    private String keywords;
-    private String cssClass;
+    private String detailPath;
+    private String url;
+    private String header;
     private String image;
-    private String icon;
-    private String altImage;
-    private String articleUrl;
-    private String description;
-
-    @Indexed
-    private String adventureType;
-
-    private String staticUrl;
-    private String viewType;
-    private String mediaCssClass;
+    private String thumb;
+    private String title;
+    private String summary;
+    private String body;
+    private String author;
 
     @Indexed
     private boolean active;
@@ -56,5 +43,5 @@ public class Adventure {
     @Indexed
     private LocalDateTime lastUpdate;
 
-    private List<ObjectId> adventureMediaIds;
+    private List<ObjectId> images;
 }

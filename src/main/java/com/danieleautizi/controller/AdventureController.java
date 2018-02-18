@@ -1,49 +1,77 @@
 package com.danieleautizi.controller;
 
-import com.danieleautizi.model.entity.Adventure;
-import com.danieleautizi.repository.AdventureRepository;
+import com.danieleautizi.manager.AdventureManager;
+import com.danieleautizi.model.presentation.Adventure;
 
-import org.bson.types.ObjectId;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
+@Slf4j
 @RestController
 @RequestMapping("/adventures")
 public class AdventureController {
 
     @Autowired
-    AdventureRepository adventureRepository;
+    private AdventureManager adventureManager;
 
-    // create
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void create(@RequestBody Adventure adventure) {
-		adventureRepository.save(adventure);
-	}
+    @GetMapping(value = "/{adventureId}")
+    public Adventure getAdventure(@PathVariable("adventureId") final String adventureId) {
 
-    // read
-    @RequestMapping(value = "/{id}")
-    public Adventure read(@PathVariable ObjectId id) {
-
-        // adventureRepository.findOne(id);
-        return null;
+        LOG.debug("Get adventure by id {} ", adventureId);
+        return adventureManager.getAdventureById(adventureId);
     }
 
-    // update
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody Adventure adventure) {
-        adventureRepository.save(adventure);
-        adventureRepository.findOneByTitle("name01");
+    @GetMapping("/")
+    public List<Adventure> getAdventures() {
+
+        LOG.debug("Get all adventures. ");
+        return adventureManager.getAdventures();
     }
 
-    // delete
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable String id) {
-		adventureRepository.delete(id);
-	}
+    @GetMapping("/active")
+    public List<Adventure> getActiveAdventures() {
+
+        LOG.debug("Get all active adventures. ");
+        return adventureManager.getActiveAdventures();
+    }
+
+    @PostMapping(value = "/")
+    public Adventure create(@RequestBody final Adventure adventure) {
+
+        LOG.debug("Create Adventure {} ", adventure);
+        return adventureManager.create(adventure);
+    }
+
+    @PostMapping(value = "/bulk")
+    public List<Adventure> create(@RequestBody final List<Adventure> adventures) {
+
+        LOG.debug("Create Adventures: {} ", adventures);
+        return adventureManager.create(adventures);
+    }
+
+    @PutMapping(value = "/")
+    public void update(@RequestBody final Adventure adventure) {
+
+        LOG.debug("Update Adventure: {} ", adventure);
+        adventureManager.update(adventure);
+    }
+
+    @DeleteMapping(value = "/{adventureId}")
+    public void delete(@PathVariable("adventureId") final String adventureId) {
+
+        LOG.debug("Delete Adventure by id {} ", adventureId);
+        adventureManager.delete(adventureId);
+    }
 
 }

@@ -1,29 +1,23 @@
-package com.danieleautizi.model.entity;
+package com.danieleautizi.model.presentation;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
 @Data
-@Document
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Adventure {
 
-    @Id
-    private ObjectId id;
-
-    @Indexed
+    private String id;
     private String articleUniquePath;
 
     private String title;
@@ -39,22 +33,17 @@ public class Adventure {
     private String articleUrl;
     private String description;
 
-    @Indexed
     private String adventureType;
 
     private String staticUrl;
     private String viewType;
     private String mediaCssClass;
 
-    @Indexed
     private boolean active;
-    @Indexed
     private int prg;
 
-    @Indexed
-    private LocalDateTime datetime;
-    @Indexed
-    private LocalDateTime lastUpdate;
+    private ZonedDateTime datetime;
+    private ZonedDateTime lastUpdate;
 
-    private List<ObjectId> adventureMediaIds;
+    private List<AdventureMedia> adventureMedia;
 }
