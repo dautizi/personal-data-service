@@ -15,11 +15,11 @@ plugins {
     id "net.ltgt.apt" version "0.10"
 }
 
-apply plugin: "java"
-apply plugin: "idea"
-apply plugin: "groovy"
-apply plugin: "io.spring.dependency-management"
-apply plugin: "org.springframework.boot"
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'groovy'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.springframework.boot'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -32,9 +32,32 @@ repositories {
 // Configurations
 //---------------------------------
 configurations {
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestCompile.extendsFrom testRuntime
+
     // Providing a separate configuration for Lombok itself
     lombok
 }
+
+sourceSets {
+    integrationTest {
+        compileClasspath += main.output + test.output
+        runtimeClasspath += main.output + test.output
+
+        // You can add other directories to the classpath like this:
+        // Use "java" if you don't use Scala as a programming language
+        groovy.srcDir file("src/integration/groovy")
+        java.srcDir file("src/integration/java")
+
+        resources.srcDir file('src/integration/resources')
+    }
+
+    // test {
+    //     resources.srcDir file('src/integration/resources')
+    // }
+}
+
+ext["spock.version"] = "1.1-groovy-2.4"
 
 dependencies {
     compile("org.projectlombok:lombok:${lombokVersion}")
@@ -45,8 +68,18 @@ dependencies {
 
     compile("org.apache.commons:commons-math3:3.6.1")
     compile("com.google.guava:guava:24.0-jre")
+    compile("javax.ws.rs:javax.ws.rs-api:2.1")
+
+    compile("org.mock-server:mockserver-netty:3.11")
+    compile("io.rest-assured:rest-assured:3.0.5")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("org.spockframework:spock-core")
+    testCompile("org.spockframework:spock-spring")
+
+    integrationTestCompile("io.rest-assured:rest-assured:3.0.7")
+    integrationTestCompile("org.mock-server:mockserver-netty:3.11")
+    integrationTestCompile("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
 }
 
 bootRun {
@@ -56,3 +89,4 @@ bootRun {
 test {
   environment SPRING_PROFILES_ACTIVE: environment.SPRING_PROFILES_ACTIVE ?: "test"
 }
+
