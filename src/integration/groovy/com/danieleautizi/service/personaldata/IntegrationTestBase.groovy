@@ -6,6 +6,7 @@ import com.danieleautizi.service.personaldata.controller.ArticleController
 import com.danieleautizi.service.personaldata.controller.BlogController
 import com.danieleautizi.service.personaldata.controller.ImageController
 import com.danieleautizi.service.personaldata.controller.SkillController
+import com.danieleautizi.service.personaldata.manager.AdventureManager
 import com.danieleautizi.service.personaldata.manager.AdventureMediaManager
 import com.fasterxml.jackson.databind.ObjectMapper
 import groovy.util.logging.Slf4j
@@ -33,6 +34,8 @@ class IntegrationTestBase extends Specification {
 
     @Autowired
     protected final AdventureController adventureController
+    @Autowired
+    protected final AdventureManager adventureManager
 
     @Autowired
     protected final ArticleController articleController

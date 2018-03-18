@@ -70,10 +70,10 @@ public class AdventureMediaController {
     }
 
     @PutMapping(value = "/")
-    public void update(@RequestBody final AdventureMedia adventureMedia) {
+    public AdventureMedia update(@RequestBody final AdventureMedia adventureMedia) {
 
         LOG.debug("Update AdventureMedia: {} ", adventureMedia);
-        adventureMediaManager.update(adventureMedia);
+        return adventureMediaManager.update(adventureMedia);
     }
 
     @DeleteMapping(value = "/{adventureMediaId}")
