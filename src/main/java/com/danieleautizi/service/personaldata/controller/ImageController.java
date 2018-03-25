@@ -61,10 +61,10 @@ public class ImageController {
     }
 
     @PutMapping(value = "/")
-    public void update(@RequestBody final Image image) {
+    public Image update(@RequestBody final Image image) {
 
         LOG.debug("Update Image: {} ", image);
-        imageManager.update(image);
+        return imageManager.update(image);
     }
 
     @DeleteMapping(value = "/{imageId}")

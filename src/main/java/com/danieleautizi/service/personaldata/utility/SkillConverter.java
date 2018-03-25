@@ -1,5 +1,6 @@
 package com.danieleautizi.service.personaldata.utility;
 
+import static com.danieleautizi.service.personaldata.utility.DateTimeUtil.localDateTimeOrNull;
 import static com.danieleautizi.service.personaldata.utility.MongoUtils.objectIdOrNull;
 import static com.danieleautizi.service.personaldata.utility.MongoUtils.stringOrNull;
 
@@ -7,6 +8,7 @@ import com.danieleautizi.service.personaldata.model.presentation.Skill;
 
 import lombok.experimental.UtilityClass;
 
+import java.time.ZoneOffset;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +30,7 @@ public class SkillConverter {
                                                                           .progress(skill.getProgress())
                                                                           .percent(skill.getPercent())
                                                                           .years(skill.getYears())
+                                                                          .since(localDateTimeOrNull(skill.getSince()))
                                                                           .imageUrl(skill.getImageUrl())
                                                                           .active(skill.isActive())
                                                                           .prg(skill.getPrg())
@@ -45,6 +48,8 @@ public class SkillConverter {
                       .progress(skillEntity.getProgress())
                       .percent(skillEntity.getPercent())
                       .years(skillEntity.getYears())
+                      .since(skillEntity.getSince()
+                                        .atZone(ZoneOffset.UTC))
                       .imageUrl(skillEntity.getImageUrl())
                       .active(skillEntity.isActive())
                       .prg(skillEntity.getPrg())

@@ -8,6 +8,9 @@ import com.danieleautizi.service.personaldata.controller.ImageController
 import com.danieleautizi.service.personaldata.controller.SkillController
 import com.danieleautizi.service.personaldata.manager.AdventureManager
 import com.danieleautizi.service.personaldata.manager.AdventureMediaManager
+import com.danieleautizi.service.personaldata.manager.ImageManager
+import com.danieleautizi.service.personaldata.manager.SkillManager
+import com.danieleautizi.service.personaldata.utility.DateTimeUtil
 import com.fasterxml.jackson.databind.ObjectMapper
 import groovy.util.logging.Slf4j
 import io.restassured.RestAssured
@@ -15,6 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.context.embedded.LocalServerPort
 import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
+
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
 
 @Slf4j(value = "LOG")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
@@ -45,9 +53,15 @@ class IntegrationTestBase extends Specification {
 
     @Autowired
     protected final ImageController imageController
+    @Autowired
+    protected final ImageManager imageManager
 
     @Autowired
     protected final SkillController skillController
+    @Autowired
+    protected final SkillManager skillManager
+
+    protected static final ZonedDateTime FIXED_TODAY = DateTimeUtil.fixClockAt(ZonedDateTime.of(LocalDate.of(2018, 3, 25), LocalTime.MIN, ZoneOffset.UTC))
 
     void setup() {
 

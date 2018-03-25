@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.ZonedDateTime;
+
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @Data
 @Builder
@@ -21,6 +23,7 @@ public class Skill {
     private Integer progress;
     private Integer percent;
     private Integer years;
+    private ZonedDateTime since;
     private String imageUrl;
 
     private boolean active;

@@ -14,52 +14,52 @@ public interface ImageManager {
      * @param imageId
      * @return Image
      */
-    public Image getImageById(final String imageId);
+    Image getImageById(final String imageId);
 
     /**
      * Find Images by a bunch of ids
      * @param imageIds
      * @return List<Image>
      */
-    public List<Image> getImageByIds(final List<String> imageIds);
+    List<Image> getImageByIds(final List<String> imageIds);
 
     /**
      * Find all Images
      * @return List<Image>
      */
-    public List<Image> getImages();
+    List<Image> getImages();
 
     /**
      * Find all the active Images
      * @return List<Image>
      */
-    public List<Image> getActiveImages();
+    List<Image> getActiveImages();
 
     /**
      * Create a new Image
      * @param image
      * @return Image created
      */
-    public Image create(final Image image);
+    Image create(final Image image);
 
     /**
      * Create new Images
      * @param images
      * @return List<Image> created
      */
-    public List<Image> create(final List<Image> images);
+    List<Image> create(final List<Image> images);
 
     /**
      * Update an Image
      * @param image
      * @return Image updated
      */
-    public Image update(final Image image);
+    Image update(final Image image);
 
     /**
      * Delete an existing Image by its id
      * @param imageId
      */
-    public void delete(final String imageId);
+    void delete(final String imageId);
 
 }

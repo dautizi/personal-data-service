@@ -61,10 +61,10 @@ public class SkillController {
     }
 
     @PutMapping(value = "/")
-    public void update(@RequestBody final Skill skill) {
+    public Skill update(@RequestBody final Skill skill) {
 
         LOG.debug("Update Skill: {} ", skill);
-        skillManager.update(skill);
+        return skillManager.update(skill);
     }
 
     @DeleteMapping(value = "/{skillId}")

@@ -14,52 +14,52 @@ public interface SkillManager {
      * @param skillId
      * @return Skill
      */
-    public Skill getSkillById(final String skillId);
+    Skill getSkillById(final String skillId);
 
     /**
      * Find Skills by a bunch of ids
      * @param skillIds
      * @return List<Skill>
      */
-    public List<Skill> getSkillByIds(final List<String> skillIds);
+    List<Skill> getSkillByIds(final List<String> skillIds);
 
     /**
      * Find all Skills
      * @return List<Skill>
      */
-    public List<Skill> getSkills();
+    List<Skill> getSkills();
 
     /**
      * Find all the active Skills
      * @return List<Skill>
      */
-    public List<Skill> getActiveSkills();
+    List<Skill> getActiveSkills();
 
     /**
      * Create a new Skill
      * @param skill
      * @return Skill created
      */
-    public Skill create(final Skill skill);
+    Skill create(final Skill skill);
 
     /**
      * Create new Skills
      * @param skills
      * @return List<Skill> created
      */
-    public List<Skill> create(final List<Skill> skills);
+    List<Skill> create(final List<Skill> skills);
 
     /**
      * Update an Skill
      * @param skill
      * @return Skill updated
      */
-    public Skill update(final Skill skill);
+    Skill update(final Skill skill);
 
     /**
      * Delete an existing Skill by its id
      * @param skillId
      */
-    public void delete(final String skillId);
+    void delete(final String skillId);
 
 }

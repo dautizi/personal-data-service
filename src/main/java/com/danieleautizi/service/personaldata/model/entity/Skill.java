@@ -10,6 +10,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
 @Data
 @Document
 @Builder
@@ -26,6 +28,7 @@ public class Skill {
     private Integer progress;
     private Integer percent;
     private Integer years;
+    private LocalDateTime since;
     private String imageUrl;
 
     @Indexed
