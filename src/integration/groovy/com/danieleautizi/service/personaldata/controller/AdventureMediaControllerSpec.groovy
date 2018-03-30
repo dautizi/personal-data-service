@@ -15,6 +15,8 @@ class AdventureMediaControllerSpec extends IntegrationTestBase {
     def 'Create a new adventure media through #endpoint and check if it has been successfully created'() {
 
         given:
+            def adventureMediaTypeRef = new TypeReference<AdventureMedia>(){}
+
             def mediaType = "image"
             def mediaPath = "/pages/adventure/location/picture-1.jpg"
             def mediaUrl = "http://test.com/images/pages/adventure/location/picture-1.jpg"
@@ -42,9 +44,10 @@ class AdventureMediaControllerSpec extends IntegrationTestBase {
                                 .then()
                                 .statusCode(statusCode)
                                 .extract().body().asString()
+            def adventureMediaCreated = (AdventureMedia) objectMapper.readValue(actual, adventureMediaTypeRef)
 
             // search the adventureMedia we created
-            def stored = adventureMediaManager.getAdventureMediaByPath(mediaPath)
+            def stored = adventureMediaManager.getAdventureMediaById(adventureMediaCreated.getId())
             def expected = objectMapper.writeValueAsString(stored)
 
             expected == actual
@@ -85,9 +88,8 @@ class AdventureMediaControllerSpec extends IntegrationTestBase {
                                 .then()
                                 .statusCode(statusCode)
                                 .extract().body().asString()
-
-            def adventureMediaCreated = objectMapper.readValue(actual, adventureMediaTypeRef)
-            def idCreated = ((AdventureMedia) adventureMediaCreated).getId()
+            def adventureMediaCreated = (AdventureMedia) objectMapper.readValue(actual, adventureMediaTypeRef)
+            def idCreated = adventureMediaCreated.getId()
 
             def getAndDeleteEndpoint = "${createEndpoint}${idCreated}"
 
@@ -108,7 +110,6 @@ class AdventureMediaControllerSpec extends IntegrationTestBase {
                    .delete(getAndDeleteEndpoint)
                    .then()
                    .statusCode(statusCode)
-                   .extract().body().asString()
 
             def stored = adventureMediaManager.getAdventureMediaById(idCreated)
 
@@ -151,8 +152,8 @@ class AdventureMediaControllerSpec extends IntegrationTestBase {
                                 .statusCode(statusCode)
                                 .extract().body().asString()
 
-            def adventureMediaCreated = objectMapper.readValue(actual, adventureMediaTypeRef)
-            def idCreated = ((AdventureMedia) adventureMediaCreated).getId()
+            def adventureMediaCreated = (AdventureMedia) objectMapper.readValue(actual, adventureMediaTypeRef)
+            def idCreated = adventureMediaCreated.getId()
 
         expect:
             // search the adventureMedia we created
@@ -161,8 +162,7 @@ class AdventureMediaControllerSpec extends IntegrationTestBase {
 
             created == actual
 
-            def updated = adventureMediaToCreate
-            updated.setId(idCreated)
+            def updated = stored
             updated.setTitle("Title Updated")
             updated.setCssClass("latest-style")
 

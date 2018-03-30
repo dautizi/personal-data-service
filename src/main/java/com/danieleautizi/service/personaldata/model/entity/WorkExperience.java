@@ -10,22 +10,36 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
 @Data
 @Document
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Image {
+public class WorkExperience {
 
     @Id
     private ObjectId id;
 
-    private String title;
-    private String url;
-    private String type;
+    @Indexed
+    private String company;
+    private String role;
+    private String description;
+    private String period;
+    private String companyImage;
+    private String companyThumb;
+
+    private String startYear;
+    private String endYear;
 
     @Indexed
     private boolean active;
     @Indexed
     private int prg;
+
+    @Indexed
+    private LocalDateTime datetime;
+    @Indexed
+    private LocalDateTime lastUpdate;
 }

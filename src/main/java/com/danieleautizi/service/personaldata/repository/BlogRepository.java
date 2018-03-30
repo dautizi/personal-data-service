@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface BlogRepository extends MongoRepository<Blog, ObjectId> {
 
-    public List<Blog> findBlogsByIdIn(final List<ObjectId> blogIds);
+    List<Blog> findBlogsByIdIn(final List<ObjectId> blogIds);
 
-    public List<Blog> findBlogsByActive(final boolean active);
+    List<Blog> findBlogsByActive(final boolean active);
 
 }

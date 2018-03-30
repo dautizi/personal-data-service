@@ -92,4 +92,3 @@ bootRun {
 test {
   environment SPRING_PROFILES_ACTIVE: environment.SPRING_PROFILES_ACTIVE ?: "test"
 }
-

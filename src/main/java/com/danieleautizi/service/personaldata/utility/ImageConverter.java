@@ -23,9 +23,11 @@ public class ImageConverter {
                ? null
                : com.danieleautizi.service.personaldata.model.entity.Image.builder()
                                                                           .id(objectIdOrNull(image.getId()))
+                                                                          .title(image.getTitle())
                                                                           .url(image.getUrl())
                                                                           .type(image.getType())
                                                                           .active(image.isActive())
+                                                                          .prg(image.getPrg())
                                                                           .build();
     }
 
@@ -35,9 +37,11 @@ public class ImageConverter {
                ? null
                : Image.builder()
                       .id(stringOrNull(imageEntity.getId()))
+                      .title(imageEntity.getTitle())
                       .url(imageEntity.getUrl())
                       .type(imageEntity.getType())
                       .active(imageEntity.isActive())
+                      .prg(imageEntity.getPrg())
                       .build();
     }
 

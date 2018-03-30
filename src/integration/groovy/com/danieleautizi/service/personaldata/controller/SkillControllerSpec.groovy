@@ -1,7 +1,6 @@
 package com.danieleautizi.service.personaldata.controller
 
 import com.danieleautizi.service.personaldata.IntegrationTestBase
-import com.danieleautizi.service.personaldata.model.presentation.Image
 import com.danieleautizi.service.personaldata.model.presentation.Skill
 import com.fasterxml.jackson.core.type.TypeReference
 import io.restassured.http.ContentType
@@ -20,7 +19,7 @@ class SkillControllerSpec extends IntegrationTestBase {
                                      .groupName("Languages")
                                      .title("Java")
                                      .progress(100)
-                                     .percent(100)
+                                     .percentage(100)
                                      .years(7)
                                      .since(FIXED_TODAY.minusYears(7))
                                      .imageUrl("http://test.com/product-cover.png")
@@ -60,7 +59,7 @@ class SkillControllerSpec extends IntegrationTestBase {
                                      .groupName("Languages")
                                      .title("Java")
                                      .progress(100)
-                                     .percent(100)
+                                     .percentage(100)
                                      .years(7)
                                      .since(FIXED_TODAY.minusYears(7))
                                      .imageUrl("http://test.com/product-cover.png")
@@ -117,7 +116,7 @@ class SkillControllerSpec extends IntegrationTestBase {
                                      .groupName("Languages")
                                      .title("Java")
                                      .progress(70)
-                                     .percent(70)
+                                     .percentage(70)
                                      .years(7)
                                      .since(FIXED_TODAY.minusYears(7))
                                      .imageUrl("http://test.com/product-cover.png")
@@ -145,7 +144,7 @@ class SkillControllerSpec extends IntegrationTestBase {
 
             def updated = skillToCreate
             updated.setId(idCreated)
-            updated.setPercent(100)
+            updated.setPercentage(100)
             updated.setProgress(100)
 
             def updateResponse = given().contentType(ContentType.JSON)

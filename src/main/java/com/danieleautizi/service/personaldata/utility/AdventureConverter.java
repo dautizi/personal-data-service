@@ -65,7 +65,7 @@ public class AdventureConverter {
                           .id(stringOrNull(adventureEntity.getId()))
                           .articleUniquePath(adventureEntity.getArticleUniquePath())
                           .title(adventureEntity.getTitle())
-                          .category(adventureEntity.getTag())
+                          .category(adventureEntity.getCategory())
                           .section(adventureEntity.getSection())
                           .tag(adventureEntity.getTag())
 

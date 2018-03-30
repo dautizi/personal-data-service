@@ -21,7 +21,7 @@ public class Skill {
     private String groupName;
     private String title;
     private Integer progress;
-    private Integer percent;
+    private Integer percentage;
     private Integer years;
     private ZonedDateTime since;
     private String imageUrl;

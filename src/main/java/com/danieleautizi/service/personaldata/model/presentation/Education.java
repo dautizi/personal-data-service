@@ -1,5 +1,6 @@
 package com.danieleautizi.service.personaldata.model.presentation;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.AllArgsConstructor;
@@ -9,21 +10,23 @@ import lombok.NoArgsConstructor;
 
 import java.time.ZonedDateTime;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AdventureMedia {
+public class Education {
 
     private String id;
 
-    private String mediaType;
-    private String mediaPath;
-    private String mediaUrl;
+    private String school;
     private String title;
-    private String alt;
-    private String cssClass;
+    private String description;
+    private String schoolImage;
+    private String schoolThumb;
+    private String startYear;
+    private String endYear;
 
     private boolean active;
     private int prg;

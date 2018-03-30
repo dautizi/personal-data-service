@@ -58,7 +58,7 @@ public class BlogConverter {
                : Blog.builder()
                      .id(stringOrNull(blogEntity.getId()))
                      .title(blogEntity.getTitle())
-                     .category(blogEntity.getTag())
+                     .category(blogEntity.getCategory())
                      .section(blogEntity.getSection())
                      .tag(blogEntity.getTag())
 

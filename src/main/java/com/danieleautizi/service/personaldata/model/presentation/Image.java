@@ -16,8 +16,10 @@ public class Image {
 
     private String id;
 
+    private String title;
     private String url;
     private String type;
 
     private boolean active;
+    private int prg;
 }

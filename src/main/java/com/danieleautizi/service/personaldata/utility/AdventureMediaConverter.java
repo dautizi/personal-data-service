@@ -1,5 +1,6 @@
 package com.danieleautizi.service.personaldata.utility;
 
+import static com.danieleautizi.service.personaldata.utility.DateTimeUtil.localDateTimeOrNull;
 import static com.danieleautizi.service.personaldata.utility.MongoUtils.objectIdOrNull;
 import static com.danieleautizi.service.personaldata.utility.MongoUtils.stringOrNull;
 
@@ -7,6 +8,7 @@ import com.danieleautizi.service.personaldata.model.presentation.AdventureMedia;
 
 import lombok.experimental.UtilityClass;
 
+import java.time.ZoneOffset;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,6 +33,10 @@ public class AdventureMediaConverter {
                                                                                    .cssClass(adventureMedia.getCssClass())
                                                                                    .active(adventureMedia.isActive())
                                                                                    .prg(adventureMedia.getPrg())
+
+                                                                                   .datetime(localDateTimeOrNull(adventureMedia.getDatetime()))
+                                                                                   .lastUpdate(localDateTimeOrNull(adventureMedia.getLastUpdate()))
+
                                                                                    .build();
     }
 
@@ -49,6 +55,11 @@ public class AdventureMediaConverter {
                                .cssClass(adventureMediaEntity.getCssClass())
                                .active(adventureMediaEntity.isActive())
                                .prg(adventureMediaEntity.getPrg())
+
+                               .datetime(adventureMediaEntity.getDatetime()
+                                                             .atZone(ZoneOffset.UTC))
+                               .lastUpdate(adventureMediaEntity.getLastUpdate()
+                                                               .atZone(ZoneOffset.UTC))
                                .build();
     }
 

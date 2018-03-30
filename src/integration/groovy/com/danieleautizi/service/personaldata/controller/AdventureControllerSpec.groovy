@@ -8,8 +8,6 @@ import io.restassured.http.ContentType
 import org.springframework.http.HttpStatus
 import spock.lang.Unroll
 
-import java.time.ZonedDateTime
-
 import static io.restassured.RestAssured.given
 
 @Unroll
@@ -86,10 +84,10 @@ class AdventureControllerSpec extends IntegrationTestBase {
                                 .statusCode(statusCode)
                                 .extract().body().asString()
             def adventureTypeRef = new TypeReference<Adventure>(){}
-            def actualCreated = objectMapper.readValue(actual, adventureTypeRef)
+            def actualCreated = (Adventure) objectMapper.readValue(actual, adventureTypeRef)
 
             // search the adventureMedia we created
-            def stored = adventureManager.getAdventureById(((Adventure) actualCreated).getId())
+            def stored = adventureManager.getAdventureById(actualCreated.getId())
             def expected = objectMapper.writeValueAsString(stored)
 
             expected == actual

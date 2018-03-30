@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface AdventureRepository extends MongoRepository<Adventure, ObjectId> {
 
-    public List<Adventure> findAdventuresByIdIn(final List<ObjectId> adventureIds);
+    List<Adventure> findAdventuresByIdIn(final List<ObjectId> adventureIds);
 
-    public List<Adventure> findAdventuresByActive(final boolean active);
+    List<Adventure> findAdventuresByActive(final boolean active);
 
 }

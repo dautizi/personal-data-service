@@ -1,5 +1,7 @@
 package com.danieleautizi.service.personaldata.utility;
 
+import static java.lang.Math.toIntExact;
+
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.val;
@@ -9,6 +11,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 /**
@@ -110,4 +113,13 @@ public final class DateTimeUtil {
                : null;
     }
 
+    public static int getYearsDifference(final LocalDateTime localDateTime) {
+
+        if (localDateTime == null) {
+            return 0;
+        }
+
+        val now = utcLocalDateTimeNow();
+        return toIntExact(localDateTime.until(now, ChronoUnit.YEARS));
+    }
 }

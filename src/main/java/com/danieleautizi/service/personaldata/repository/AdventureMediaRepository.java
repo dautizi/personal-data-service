@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface AdventureMediaRepository extends MongoRepository<AdventureMedia, ObjectId> {
 
-    public List<AdventureMedia> findAdventureMediaByIdIn(final List<ObjectId> adventureMediaIds);
+    List<AdventureMedia> findAdventureMediaByIdIn(final List<ObjectId> adventureMediaIds);
 
-    public List<AdventureMedia> findAdventureMediaByActive(final boolean active);
+    List<AdventureMedia> findAdventureMediaByActive(final boolean active);
 
-    public AdventureMedia findAdventureMediaByMediaPath(final String adventureMediaPath);
+    AdventureMedia findAdventureMediaByMediaPath(final String adventureMediaPath);
 }

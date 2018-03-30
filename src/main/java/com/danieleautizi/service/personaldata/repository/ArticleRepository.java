@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface ArticleRepository extends MongoRepository<Article, ObjectId> {
 
-    public List<Article> findArticlesByIdIn(final List<ObjectId> articleIds);
+    List<Article> findArticlesByIdIn(final List<ObjectId> articleIds);
 
-    public List<Article> findArticlesByActive(final boolean active);
+    List<Article> findArticlesByActive(final boolean active);
 
 }

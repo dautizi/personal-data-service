@@ -15,13 +15,17 @@ class ImageControllerSpec extends IntegrationTestBase {
     def 'Create a new image through #endpoint and check if it has been successfully created'() {
 
         given:
+            def title = "Picture 1"
             def url = "http://test.com/images/picture-1.jpg"
             def type = "picture"
+            def prg = 1
 
             def imageToCreate = Image.builder()
+                                     .title(title)
                                      .url(url)
                                      .type(type)
                                      .active(true)
+                                     .prg(prg)
                                      .build()
 
         expect:
@@ -52,13 +56,17 @@ class ImageControllerSpec extends IntegrationTestBase {
         given:
             def imageTypeRef = new TypeReference<Image>(){}
 
+            def title = "Picture 1"
             def url = "http://test.com/images/picture-1.jpg"
             def type = "picture"
+            def prg = 1
 
             def imageToCreate = Image.builder()
+                                     .title(title)
                                      .url(url)
                                      .type(type)
                                      .active(true)
+                                     .prg(prg)
                                      .build()
 
             def actual = given().contentType(ContentType.JSON)
@@ -106,13 +114,17 @@ class ImageControllerSpec extends IntegrationTestBase {
         given:
             def imageTypeRef = new TypeReference<Image>(){}
 
+            def title = "Picture 1"
             def url = "http://test.com/images/picture-1.jpg"
             def type = "picture"
+            def prg = 1
 
             def imageToCreate = Image.builder()
+                                     .title(title)
                                      .url(url)
                                      .type(type)
                                      .active(true)
+                                     .prg(prg)
                                      .build()
 
             def actual = given().contentType(ContentType.JSON)
