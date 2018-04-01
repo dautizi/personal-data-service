@@ -113,6 +113,21 @@ public final class DateTimeUtil {
                : null;
     }
 
+    public static LocalDateTime localDateTimeOrNow(final ZonedDateTime zonedDateTime) {
+
+        return zonedDateTime != null
+               ? zonedDateTime.withZoneSameInstant(ZoneOffset.UTC)
+                              .toLocalDateTime()
+               : utcLocalDateTimeNow();
+    }
+
+    public static ZonedDateTime zonedDateTimeOrNow(final LocalDateTime localDateTime) {
+
+        return localDateTime != null
+               ? localDateTime.atZone(ZoneOffset.UTC)
+               : utcZonedLocalDateTimeNow();
+    }
+
     public static int getYearsDifference(final LocalDateTime localDateTime) {
 
         if (localDateTime == null) {

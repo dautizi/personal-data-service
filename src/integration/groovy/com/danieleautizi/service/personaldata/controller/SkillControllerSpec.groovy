@@ -142,8 +142,7 @@ class SkillControllerSpec extends IntegrationTestBase {
 
             created == actual
 
-            def updated = skillToCreate
-            updated.setId(idCreated)
+            def updated = skillCreated
             updated.setPercentage(100)
             updated.setProgress(100)
 

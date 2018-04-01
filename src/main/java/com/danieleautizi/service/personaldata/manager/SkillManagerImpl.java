@@ -4,6 +4,7 @@ import static com.danieleautizi.service.personaldata.utility.SkillConverter.enti
 import static com.danieleautizi.service.personaldata.utility.SkillConverter.entityToPresentation;
 import static com.danieleautizi.service.personaldata.utility.SkillConverter.presentationToEntity;
 import static com.danieleautizi.service.personaldata.utility.MongoUtils.stringToObject;
+import static com.danieleautizi.service.personaldata.utility.DateTimeUtil.utcZonedLocalDateTimeNow;
 
 import com.danieleautizi.service.personaldata.exception.BadRequestException;
 import com.danieleautizi.service.personaldata.exception.NotFoundException;
@@ -83,7 +84,11 @@ public class SkillManagerImpl implements SkillManager {
     @Override
     public Skill create(final Skill skill) {
 
+        val now = utcZonedLocalDateTimeNow();
+        skill.setDatetime(now);
+        skill.setLastUpdate(now);
         val skillEntity = skillRepository.save(presentationToEntity(skill));
+
         return entityToPresentation(skillEntity);
     }
 
@@ -116,7 +121,9 @@ public class SkillManagerImpl implements SkillManager {
             throw new NotFoundException(personalDataUtil.getMessage(SKILL_NOT_FOUND_MESSAGE, skill.getId()));
         }
 
+        skill.setLastUpdate(utcZonedLocalDateTimeNow());
         val skillEntity = presentationToEntity(skill);
+
         return entityToPresentation(skillRepository.save(skillEntity));
     }
 

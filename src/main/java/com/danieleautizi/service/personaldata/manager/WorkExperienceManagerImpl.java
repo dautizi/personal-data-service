@@ -4,6 +4,7 @@ import static com.danieleautizi.service.personaldata.utility.MongoUtils.stringTo
 import static com.danieleautizi.service.personaldata.utility.WorkExperienceConverter.entitiesToPresentation;
 import static com.danieleautizi.service.personaldata.utility.WorkExperienceConverter.entityToPresentation;
 import static com.danieleautizi.service.personaldata.utility.WorkExperienceConverter.presentationToEntity;
+import static com.danieleautizi.service.personaldata.utility.DateTimeUtil.utcZonedLocalDateTimeNow;
 
 import com.danieleautizi.service.personaldata.exception.BadRequestException;
 import com.danieleautizi.service.personaldata.exception.NotFoundException;
@@ -83,6 +84,10 @@ public class WorkExperienceManagerImpl implements WorkExperienceManager {
     @Override
     public WorkExperience create(final WorkExperience workExperience) {
 
+        val now = utcZonedLocalDateTimeNow();
+        workExperience.setDatetime(now);
+        workExperience.setLastUpdate(now);
+
         val workExperienceEntity = workExperienceRepository.save(presentationToEntity(workExperience));
         return entityToPresentation(workExperienceEntity);
     }
@@ -116,6 +121,7 @@ public class WorkExperienceManagerImpl implements WorkExperienceManager {
             throw new NotFoundException(personalDataUtil.getMessage(WORK_EXPERIENCE_NOT_FOUND_MESSAGE, workExperience.getId()));
         }
 
+        workExperience.setLastUpdate(utcZonedLocalDateTimeNow());
         val workExperienceEntity = presentationToEntity(workExperience);
         return entityToPresentation(workExperienceRepository.save(workExperienceEntity));
     }

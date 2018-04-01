@@ -22,6 +22,9 @@ public class SkillConverterTest {
     private static final ZonedDateTime FIXED_NOW = DateTimeUtil.fixClockAt(FAKE_NOW);
     private static final ZonedDateTime SINCE = ZonedDateTime.of(LocalDate.of(2013, 5, 2), LocalTime.MIN, ZoneOffset.UTC);
 
+    private static final ZonedDateTime DATETIME = ZonedDateTime.of(LocalDate.of(2015, 5, 2), LocalTime.MIN, ZoneOffset.UTC);
+    private static final ZonedDateTime LAST_UPDATE = DATETIME.plusMonths(6);
+
     private static final String GROUP_NAME = "Languages";
     private static final String TITLE = "Java";
     private static final Integer PROGRESS = 75;
@@ -43,6 +46,8 @@ public class SkillConverterTest {
                                                                                       .imageUrl(IMAGE_URL)
                                                                                       .active(ACTIVE)
                                                                                       .prg(PRG)
+                                                                                      .datetime(DATETIME.toLocalDateTime())
+                                                                                      .lastUpdate(LAST_UPDATE.toLocalDateTime())
                                                                                       .build();
 
         val actualSkill = Skill.builder()
@@ -55,6 +60,8 @@ public class SkillConverterTest {
                                .imageUrl(IMAGE_URL)
                                .active(ACTIVE)
                                .prg(PRG)
+                               .datetime(DATETIME)
+                               .lastUpdate(LAST_UPDATE)
                                .build();
 
         assertEquals(expectedEntity, SkillConverter.presentationToEntity(actualSkill));
@@ -73,6 +80,8 @@ public class SkillConverterTest {
                                  .imageUrl(IMAGE_URL)
                                  .active(ACTIVE)
                                  .prg(PRG)
+                                 .datetime(DATETIME)
+                                 .lastUpdate(LAST_UPDATE)
                                  .build();
 
         val actualEntity = com.danieleautizi.service.personaldata.model.entity.Skill.builder()
@@ -84,6 +93,8 @@ public class SkillConverterTest {
                                                                                     .imageUrl(IMAGE_URL)
                                                                                     .active(ACTIVE)
                                                                                     .prg(PRG)
+                                                                                    .datetime(DATETIME.toLocalDateTime())
+                                                                                    .lastUpdate(LAST_UPDATE.toLocalDateTime())
                                                                                     .build();
 
         assertEquals(expectedSkill, SkillConverter.entityToPresentation(actualEntity));

@@ -3,7 +3,7 @@ package com.danieleautizi.service.personaldata.manager;
 import static com.danieleautizi.service.personaldata.utility.AdventureMediaConverter.entitiesToPresentation;
 import static com.danieleautizi.service.personaldata.utility.AdventureMediaConverter.entityToPresentation;
 import static com.danieleautizi.service.personaldata.utility.AdventureMediaConverter.presentationToEntity;
-import static com.danieleautizi.service.personaldata.utility.DateTimeUtil.utcLocalDateTimeNow;
+import static com.danieleautizi.service.personaldata.utility.DateTimeUtil.utcZonedLocalDateTimeNow;
 import static com.danieleautizi.service.personaldata.utility.MongoUtils.stringToObject;
 
 import com.danieleautizi.service.personaldata.exception.BadRequestException;
@@ -94,10 +94,11 @@ public class AdventureMediaManagerImpl implements AdventureMediaManager {
     @Override
     public AdventureMedia create(final AdventureMedia adventureMedia) {
 
-        val now = utcLocalDateTimeNow();
+        val now = utcZonedLocalDateTimeNow();
+        adventureMedia.setDatetime(now);
+        adventureMedia.setLastUpdate(now);
         val adventureMediaEntity = presentationToEntity(adventureMedia);
-        adventureMediaEntity.setDatetime(now);
-        adventureMediaEntity.setLastUpdate(now);
+
         return entityToPresentation(adventureMediaRepository.save(adventureMediaEntity));
     }
 
@@ -130,8 +131,9 @@ public class AdventureMediaManagerImpl implements AdventureMediaManager {
             throw new NotFoundException(personalDataUtil.getMessage(ADVENTURE_MEDIA_NOT_FOUND_MESSAGE, adventureMedia.getId()));
         }
 
+        adventureMedia.setLastUpdate(utcZonedLocalDateTimeNow());
         val adventureMediaEntity = presentationToEntity(adventureMedia);
-        adventureMediaEntity.setLastUpdate(utcLocalDateTimeNow());
+
         return entityToPresentation(adventureMediaRepository.save(adventureMediaEntity));
     }
 

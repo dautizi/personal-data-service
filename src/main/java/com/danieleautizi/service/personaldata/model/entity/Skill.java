@@ -34,4 +34,9 @@ public class Skill {
     private boolean active;
     @Indexed
     private int prg;
+
+    @Indexed
+    private LocalDateTime datetime;
+    @Indexed
+    private LocalDateTime lastUpdate;
 }

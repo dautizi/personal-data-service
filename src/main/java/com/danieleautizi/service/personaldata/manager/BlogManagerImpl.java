@@ -3,7 +3,7 @@ package com.danieleautizi.service.personaldata.manager;
 import static com.danieleautizi.service.personaldata.utility.BlogConverter.entitiesToPresentation;
 import static com.danieleautizi.service.personaldata.utility.BlogConverter.entityToPresentation;
 import static com.danieleautizi.service.personaldata.utility.BlogConverter.presentationToEntity;
-import static com.danieleautizi.service.personaldata.utility.DateTimeUtil.utcLocalDateTimeNow;
+import static com.danieleautizi.service.personaldata.utility.DateTimeUtil.utcZonedLocalDateTimeNow;
 import static com.danieleautizi.service.personaldata.utility.MongoUtils.stringToObject;
 
 import com.danieleautizi.service.personaldata.exception.BadRequestException;
@@ -84,10 +84,11 @@ public class BlogManagerImpl implements BlogManager {
     @Override
     public Blog create(final Blog blog) {
 
-        val now = utcLocalDateTimeNow();
+        val now = utcZonedLocalDateTimeNow();
+        blog.setDatetime(now);
+        blog.setLastUpdate(now);
         val blogEntity = presentationToEntity(blog);
-        blogEntity.setDatetime(now);
-        blogEntity.setLastUpdate(now);
+
         return entityToPresentation(blogRepository.save(blogEntity));
     }
 
@@ -120,8 +121,9 @@ public class BlogManagerImpl implements BlogManager {
             throw new NotFoundException(personalDataUtil.getMessage(BLOG_NOT_FOUND_MESSAGE, blog.getId()));
         }
 
+        blog.setLastUpdate(utcZonedLocalDateTimeNow());
         val blogEntity = presentationToEntity(blog);
-        blogEntity.setLastUpdate(utcLocalDateTimeNow());
+
         return entityToPresentation(blogRepository.save(blogEntity));
     }
 

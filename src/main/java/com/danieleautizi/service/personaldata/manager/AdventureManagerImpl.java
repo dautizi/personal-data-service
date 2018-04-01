@@ -4,7 +4,7 @@ import static com.danieleautizi.service.personaldata.utility.AdventureConverter.
 import static com.danieleautizi.service.personaldata.utility.AdventureConverter.entityToPresentation;
 import static com.danieleautizi.service.personaldata.utility.AdventureConverter.presentationToEntity;
 import static com.danieleautizi.service.personaldata.utility.MongoUtils.stringToObject;
-import static com.danieleautizi.service.personaldata.utility.DateTimeUtil.utcLocalDateTimeNow;
+import static com.danieleautizi.service.personaldata.utility.DateTimeUtil.utcZonedLocalDateTimeNow;
 
 import com.danieleautizi.service.personaldata.exception.BadRequestException;
 import com.danieleautizi.service.personaldata.exception.NotFoundException;
@@ -84,10 +84,11 @@ public class AdventureManagerImpl implements AdventureManager {
     @Override
     public Adventure create(final Adventure adventure) {
 
-        val now = utcLocalDateTimeNow();
+        val now = utcZonedLocalDateTimeNow();
+        adventure.setDatetime(now);
+        adventure.setLastUpdate(now);
         val adventureEntity = presentationToEntity(adventure);
-        adventureEntity.setDatetime(now);
-        adventureEntity.setLastUpdate(now);
+
         return entityToPresentation(adventureRepository.save(adventureEntity));
     }
 
@@ -120,8 +121,9 @@ public class AdventureManagerImpl implements AdventureManager {
             throw new NotFoundException(personalDataUtil.getMessage(ADVENTURE_NOT_FOUND_MESSAGE, adventure.getId()));
         }
 
+        adventure.setLastUpdate(utcZonedLocalDateTimeNow());
         val adventureEntity = presentationToEntity(adventure);
-        adventureEntity.setLastUpdate(utcLocalDateTimeNow());
+
         return entityToPresentation(adventureRepository.save(adventureEntity));
     }
 

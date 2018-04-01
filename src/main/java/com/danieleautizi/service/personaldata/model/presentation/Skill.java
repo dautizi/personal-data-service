@@ -28,4 +28,7 @@ public class Skill {
 
     private boolean active;
     private int prg;
+
+    private ZonedDateTime datetime;
+    private ZonedDateTime lastUpdate;
 }

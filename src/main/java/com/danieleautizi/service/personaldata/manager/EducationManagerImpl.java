@@ -3,7 +3,7 @@ package com.danieleautizi.service.personaldata.manager;
 import static com.danieleautizi.service.personaldata.utility.EducationConverter.entitiesToPresentation;
 import static com.danieleautizi.service.personaldata.utility.EducationConverter.entityToPresentation;
 import static com.danieleautizi.service.personaldata.utility.EducationConverter.presentationToEntity;
-import static com.danieleautizi.service.personaldata.utility.DateTimeUtil.utcLocalDateTimeNow;
+import static com.danieleautizi.service.personaldata.utility.DateTimeUtil.utcZonedLocalDateTimeNow;
 import static com.danieleautizi.service.personaldata.utility.MongoUtils.stringToObject;
 
 import com.danieleautizi.service.personaldata.exception.BadRequestException;
@@ -84,10 +84,11 @@ public class EducationManagerImpl implements EducationManager {
     @Override
     public Education create(final Education education) {
 
-        val now = utcLocalDateTimeNow();
+        val now = utcZonedLocalDateTimeNow();
+        education.setDatetime(now);
+        education.setLastUpdate(now);
         val educationEntity = presentationToEntity(education);
-        educationEntity.setDatetime(now);
-        educationEntity.setLastUpdate(now);
+
         return entityToPresentation(educationRepository.save(educationEntity));
     }
 
@@ -120,8 +121,9 @@ public class EducationManagerImpl implements EducationManager {
             throw new NotFoundException(personalDataUtil.getMessage(EDUCATION_NOT_FOUND_MESSAGE, education.getId()));
         }
 
+        education.setLastUpdate(utcZonedLocalDateTimeNow());
         val educationEntity = presentationToEntity(education);
-        educationEntity.setLastUpdate(utcLocalDateTimeNow());
+
         return entityToPresentation(educationRepository.save(educationEntity));
     }
 

@@ -33,6 +33,8 @@ public class SkillConverter {
                                                                           .imageUrl(skill.getImageUrl())
                                                                           .active(skill.isActive())
                                                                           .prg(skill.getPrg())
+                                                                          .datetime(localDateTimeOrNull(skill.getDatetime()))
+                                                                          .lastUpdate(localDateTimeOrNull(skill.getLastUpdate()))
                                                                           .build();
     }
 
@@ -52,6 +54,10 @@ public class SkillConverter {
                       .imageUrl(skillEntity.getImageUrl())
                       .active(skillEntity.isActive())
                       .prg(skillEntity.getPrg())
+                      .datetime(skillEntity.getDatetime()
+                                           .atZone(ZoneOffset.UTC))
+                      .lastUpdate(skillEntity.getLastUpdate()
+                                             .atZone(ZoneOffset.UTC))
                       .build();
     }
 

@@ -3,7 +3,7 @@ package com.danieleautizi.service.personaldata.manager;
 import static com.danieleautizi.service.personaldata.utility.ArticleConverter.entitiesToPresentation;
 import static com.danieleautizi.service.personaldata.utility.ArticleConverter.entityToPresentation;
 import static com.danieleautizi.service.personaldata.utility.ArticleConverter.presentationToEntity;
-import static com.danieleautizi.service.personaldata.utility.DateTimeUtil.utcLocalDateTimeNow;
+import static com.danieleautizi.service.personaldata.utility.DateTimeUtil.utcZonedLocalDateTimeNow;
 import static com.danieleautizi.service.personaldata.utility.MongoUtils.stringToObject;
 
 import com.danieleautizi.service.personaldata.exception.BadRequestException;
@@ -84,10 +84,10 @@ public class ArticleManagerImpl implements ArticleManager {
     @Override
     public Article create(final Article article) {
 
-        val now = utcLocalDateTimeNow();
+        val now = utcZonedLocalDateTimeNow();
+        article.setDatetime(now);
+        article.setLastUpdate(now);
         val articleEntity = presentationToEntity(article);
-        articleEntity.setDatetime(now);
-        articleEntity.setLastUpdate(now);
 
         return entityToPresentation(articleRepository.save(articleEntity));
     }
@@ -121,8 +121,9 @@ public class ArticleManagerImpl implements ArticleManager {
             throw new NotFoundException(personalDataUtil.getMessage(ARTICLE_NOT_FOUND_MESSAGE, article.getId()));
         }
 
+        article.setLastUpdate(utcZonedLocalDateTimeNow());
         val articleEntity = presentationToEntity(article);
-        articleEntity.setLastUpdate(utcLocalDateTimeNow());
+
         return entityToPresentation(articleRepository.save(articleEntity));
     }
 
