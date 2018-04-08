@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface EducationRepository extends MongoRepository<Education, ObjectId> {
 
-    List<Education> findEducationsByIdIn(final List<ObjectId> educationIds);
+    List<Education> findEducationsByIdInOrderByPrgAsc(final List<ObjectId> educationIds);
 
-    List<Education> findEducationsByActive(final boolean active);
+    List<Education> findEducationsByActiveOrderByPrgAsc(final boolean active);
 }

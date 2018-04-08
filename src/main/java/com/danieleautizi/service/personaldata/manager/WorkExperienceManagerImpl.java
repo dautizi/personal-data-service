@@ -53,7 +53,7 @@ public class WorkExperienceManagerImpl implements WorkExperienceManager {
     @Override
     public List<WorkExperience> getWorkExperienceByIds(final List<String> workExperienceIds) {
 
-        return entitiesToPresentation(workExperienceRepository.findWorkExperiencesByIdIn(stringToObject(workExperienceIds)));
+        return entitiesToPresentation(workExperienceRepository.findWorkExperiencesByIdInOrderByPrgDesc(stringToObject(workExperienceIds)));
     }
 
     /**
@@ -73,7 +73,7 @@ public class WorkExperienceManagerImpl implements WorkExperienceManager {
     @Override
     public List<WorkExperience> getActiveWorkExperiences() {
 
-        return entitiesToPresentation(workExperienceRepository.findWorkExperiencesByActive(true));
+        return entitiesToPresentation(workExperienceRepository.findWorkExperiencesByActiveOrderByPrgDesc(true));
     }
 
     /**

@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface WorkExperienceRepository extends MongoRepository<WorkExperience, ObjectId> {
 
-    List<WorkExperience> findWorkExperiencesByIdIn(final List<ObjectId> workExperienceIds);
+    List<WorkExperience> findWorkExperiencesByIdInOrderByPrgDesc(final List<ObjectId> workExperienceIds);
 
-    List<WorkExperience> findWorkExperiencesByActive(final boolean active);
+    List<WorkExperience> findWorkExperiencesByActiveOrderByPrgDesc(final boolean active);
 }

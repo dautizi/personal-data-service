@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface SkillRepository extends MongoRepository<Skill, ObjectId> {
 
-    List<Skill> findSkillsByIdIn(final List<ObjectId> skillIds);
+    List<Skill> findSkillsByIdInOrderByPrgAsc(final List<ObjectId> skillIds);
 
-    List<Skill> findSkillsByActive(final boolean active);
+    List<Skill> findSkillsByActiveOrderByPrgAsc(final boolean active);
 
 }

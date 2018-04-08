@@ -53,7 +53,7 @@ public class EducationManagerImpl implements EducationManager {
     @Override
     public List<Education> getEducationByIds(final List<String> educationIds) {
 
-        return entitiesToPresentation(educationRepository.findEducationsByIdIn(stringToObject(educationIds)));
+        return entitiesToPresentation(educationRepository.findEducationsByIdInOrderByPrgAsc(stringToObject(educationIds)));
     }
 
     /**
@@ -73,7 +73,7 @@ public class EducationManagerImpl implements EducationManager {
     @Override
     public List<Education> getActiveEducations() {
 
-        return entitiesToPresentation(educationRepository.findEducationsByActive(true));
+        return entitiesToPresentation(educationRepository.findEducationsByActiveOrderByPrgAsc(true));
     }
 
     /**

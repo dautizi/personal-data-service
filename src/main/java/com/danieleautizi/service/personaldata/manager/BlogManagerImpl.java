@@ -53,7 +53,7 @@ public class BlogManagerImpl implements BlogManager {
     @Override
     public List<Blog> getBlogByIds(final List<String> blogIds) {
 
-        return entitiesToPresentation(blogRepository.findBlogsByIdIn(stringToObject(blogIds)));
+        return entitiesToPresentation(blogRepository.findBlogsByIdInOrderByPrgAsc(stringToObject(blogIds)));
     }
 
     /**
@@ -73,7 +73,7 @@ public class BlogManagerImpl implements BlogManager {
     @Override
     public List<Blog> getActiveBlogs() {
 
-        return entitiesToPresentation(blogRepository.findBlogsByActive(true));
+        return entitiesToPresentation(blogRepository.findBlogsByActiveOrderByPrgAsc(true));
     }
 
     /**

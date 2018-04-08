@@ -53,7 +53,7 @@ public class AdventureMediaManagerImpl implements AdventureMediaManager {
     @Override
     public List<AdventureMedia> getAdventureMediaByIds(final List<String> adventureMediaIds) {
 
-        return entitiesToPresentation(adventureMediaRepository.findAdventureMediaByIdIn(stringToObject(adventureMediaIds)));
+        return entitiesToPresentation(adventureMediaRepository.findAdventureMediaByIdInOrderByPrgAsc(stringToObject(adventureMediaIds)));
     }
 
     /**
@@ -83,7 +83,7 @@ public class AdventureMediaManagerImpl implements AdventureMediaManager {
     @Override
     public List<AdventureMedia> getActiveAdventureMedia() {
 
-        return entitiesToPresentation(adventureMediaRepository.findAdventureMediaByActive(true));
+        return entitiesToPresentation(adventureMediaRepository.findAdventureMediaByActiveOrderByPrgAsc(true));
     }
 
     /**

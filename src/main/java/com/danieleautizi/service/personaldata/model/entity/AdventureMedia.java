@@ -31,8 +31,8 @@ public class AdventureMedia {
     private String alt;
     private String cssClass;
 
+    @Indexed
     private int prg;
-
     @Indexed
     private boolean active;
 

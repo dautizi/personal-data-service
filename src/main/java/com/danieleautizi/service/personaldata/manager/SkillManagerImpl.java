@@ -53,7 +53,7 @@ public class SkillManagerImpl implements SkillManager {
     @Override
     public List<Skill> getSkillByIds(final List<String> skillIds) {
 
-        return entitiesToPresentation(skillRepository.findSkillsByIdIn(stringToObject(skillIds)));
+        return entitiesToPresentation(skillRepository.findSkillsByIdInOrderByPrgAsc(stringToObject(skillIds)));
     }
 
     /**
@@ -73,7 +73,7 @@ public class SkillManagerImpl implements SkillManager {
     @Override
     public List<Skill> getActiveSkills() {
 
-        return entitiesToPresentation(skillRepository.findSkillsByActive(true));
+        return entitiesToPresentation(skillRepository.findSkillsByActiveOrderByPrgAsc(true));
     }
 
     /**

@@ -42,7 +42,13 @@ public class AdventureManagerImpl implements AdventureManager {
     @Override
     public Adventure getAdventureById(final String adventureId) {
 
-        return entityToPresentation(adventureRepository.findOne(stringToObject(adventureId)));
+        val adventureEntitiy = adventureRepository.findOne(stringToObject(adventureId));
+        if (adventureEntitiy == null) {
+
+            throw new NotFoundException(personalDataUtil.getMessage(ADVENTURE_NOT_FOUND_MESSAGE, adventureId));
+        }
+
+        return convertAndEnrichAdventure(adventureEntitiy);
     }
 
     /**
@@ -53,7 +59,7 @@ public class AdventureManagerImpl implements AdventureManager {
     @Override
     public List<Adventure> getAdventureByIds(final List<String> adventureIds) {
 
-        return entitiesToPresentation(adventureRepository.findAdventuresByIdIn(stringToObject(adventureIds)));
+        return entitiesToPresentation(adventureRepository.findAdventuresByIdInOrderByPrgAsc(stringToObject(adventureIds)));
     }
 
     /**
@@ -73,7 +79,16 @@ public class AdventureManagerImpl implements AdventureManager {
     @Override
     public List<Adventure> getActiveAdventures() {
 
-        return entitiesToPresentation(adventureRepository.findAdventuresByActive(true));
+        val adventureEntities = adventureRepository.findAdventuresByActiveOrderByPrgAsc(true);
+
+        if (adventureEntities == null) {
+
+            return null;
+        }
+
+        return adventureEntities.stream()
+                                .map(adventureEntitiy -> convertAndEnrichAdventure(adventureEntitiy))
+                                .collect(Collectors.toList());
     }
 
     /**
@@ -141,4 +156,19 @@ public class AdventureManagerImpl implements AdventureManager {
         adventureRepository.delete(stringToObject(adventureId));
     }
 
+    private Adventure convertAndEnrichAdventure(final com.danieleautizi.service.personaldata.model.entity.Adventure adventureEntitiy) {
+
+        val adventurePresentation = entityToPresentation(adventureEntitiy);
+        val prg = adventureEntitiy.getPrg();
+        if (prg > 1) {
+
+            val prev = entityToPresentation(adventureRepository.findFirstByActiveIsTrueAndPrg(prg - 1));
+            adventurePresentation.setPrev(prev);
+        }
+
+        val next = entityToPresentation(adventureRepository.findFirstByActiveIsTrueAndPrg(prg + 1));
+        adventurePresentation.setNext(next);
+
+        return adventurePresentation;
+    }
 }

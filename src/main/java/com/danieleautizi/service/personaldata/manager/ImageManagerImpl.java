@@ -52,7 +52,7 @@ public class ImageManagerImpl implements ImageManager {
     @Override
     public List<Image> getImageByIds(final List<String> imageIds) {
 
-        return entitiesToPresentation(imageRepository.findImagesByIdIn(stringToObject(imageIds)));
+        return entitiesToPresentation(imageRepository.findImagesByIdInOrderByPrgAsc(stringToObject(imageIds)));
     }
 
     /**
@@ -72,7 +72,7 @@ public class ImageManagerImpl implements ImageManager {
     @Override
     public List<Image> getActiveImages() {
 
-        return entitiesToPresentation(imageRepository.findImagesByActive(true));
+        return entitiesToPresentation(imageRepository.findImagesByActiveOrderByPrgAsc(true));
     }
 
     /**

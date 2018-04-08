@@ -53,7 +53,7 @@ public class ArticleManagerImpl implements ArticleManager {
     @Override
     public List<Article> getArticleByIds(final List<String> articleIds) {
 
-        return entitiesToPresentation(articleRepository.findArticlesByIdIn(stringToObject(articleIds)));
+        return entitiesToPresentation(articleRepository.findArticlesByIdInOrderByPrgAsc(stringToObject(articleIds)));
     }
 
     /**
@@ -73,7 +73,7 @@ public class ArticleManagerImpl implements ArticleManager {
     @Override
     public List<Article> getActiveArticles() {
 
-        return entitiesToPresentation(articleRepository.findArticlesByActive(true));
+        return entitiesToPresentation(articleRepository.findArticlesByActiveOrderByPrgAsc(true));
     }
 
     /**

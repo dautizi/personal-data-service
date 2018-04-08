@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface ImageRepository extends MongoRepository<Image, ObjectId> {
 
-    List<Image> findImagesByIdIn(final List<ObjectId> imageIds);
+    List<Image> findImagesByIdInOrderByPrgAsc(final List<ObjectId> imageIds);
 
-    List<Image> findImagesByActive(final boolean active);
+    List<Image> findImagesByActiveOrderByPrgAsc(final boolean active);
 
 }

@@ -48,4 +48,7 @@ public class Adventure {
     private ZonedDateTime lastUpdate;
 
     private List<AdventureMedia> adventureMedia;
+
+    private Adventure prev;
+    private Adventure next;
 }
