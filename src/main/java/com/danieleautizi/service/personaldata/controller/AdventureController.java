@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @RestController
@@ -74,4 +75,10 @@ public class AdventureController {
         adventureManager.delete(adventureId);
     }
 
+    @GetMapping("/types")
+    public Set<String> getAdventureTypes() {
+
+        LOG.debug("Get all adventures types. ");
+        return adventureManager.getAdventureTypes();
+    }
 }

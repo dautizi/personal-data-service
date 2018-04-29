@@ -19,6 +19,7 @@ import lombok.val;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,13 +43,13 @@ public class AdventureManagerImpl implements AdventureManager {
     @Override
     public Adventure getAdventureById(final String adventureId) {
 
-        val adventureEntitiy = adventureRepository.findOne(stringToObject(adventureId));
-        if (adventureEntitiy == null) {
+        val adventureEntity = adventureRepository.findOne(stringToObject(adventureId));
+        if (adventureEntity == null) {
 
             throw new NotFoundException(personalDataUtil.getMessage(ADVENTURE_NOT_FOUND_MESSAGE, adventureId));
         }
 
-        return convertAndEnrichAdventure(adventureEntitiy);
+        return convertAndEnrichAdventure(adventureEntity);
     }
 
     /**
@@ -80,14 +81,13 @@ public class AdventureManagerImpl implements AdventureManager {
     public List<Adventure> getActiveAdventures() {
 
         val adventureEntities = adventureRepository.findAdventuresByActiveOrderByPrgAsc(true);
-
         if (adventureEntities == null) {
 
             return null;
         }
 
         return adventureEntities.stream()
-                                .map(adventureEntitiy -> convertAndEnrichAdventure(adventureEntitiy))
+                                .map(adventureEntity -> convertAndEnrichAdventure(adventureEntity))
                                 .collect(Collectors.toList());
     }
 
@@ -156,10 +156,19 @@ public class AdventureManagerImpl implements AdventureManager {
         adventureRepository.delete(stringToObject(adventureId));
     }
 
-    private Adventure convertAndEnrichAdventure(final com.danieleautizi.service.personaldata.model.entity.Adventure adventureEntitiy) {
+    /**
+     * Get all adventure types
+     * @return types in String
+     */
+    public Set<String> getAdventureTypes() {
 
-        val adventurePresentation = entityToPresentation(adventureEntitiy);
-        val prg = adventureEntitiy.getPrg();
+        return adventureRepository.findAllAdventureTypes();
+    }
+
+    private Adventure convertAndEnrichAdventure(final com.danieleautizi.service.personaldata.model.entity.Adventure adventureEntity) {
+
+        val adventurePresentation = entityToPresentation(adventureEntity);
+        val prg = adventureEntity.getPrg();
         if (prg > 1) {
 
             val prev = entityToPresentation(adventureRepository.findFirstByActiveIsTrueAndPrg(prg - 1));

@@ -266,14 +266,17 @@ class AdventureControllerSpec extends IntegrationTestBase {
                               .extract().body().asString()
             def actualAdv2 = (Adventure) objectMapper.readValue(adv2, adventureTypeRef)
 
-            def stored1 = adventureManager.getAdventureById(actualCreated.get(0).getId())
-            def expectedPrev = objectMapper.writeValueAsString(stored1)
+            // get previous expected adventure and wipe next and prev for it
+            def expectedPrev = adventureManager.getAdventureById(actualCreated.get(0).getId())
+            expectedPrev.setPrev(null)
+            expectedPrev.setNext(null)
 
-            def stored3 = adventureManager.getAdventureById(actualCreated.get(2).getId())
-            def expectedNext = objectMapper.writeValueAsString(stored3)
+            def expectedNext = adventureManager.getAdventureById(actualCreated.get(2).getId())
+            expectedNext.setPrev(null)
+            expectedNext.setNext(null)
 
-            actualAdv2.getPrev() == expectedPrev
-            actualAdv2.getNext() == expectedNext
+            objectMapper.writeValueAsString(actualAdv2.getPrev()) == objectMapper.writeValueAsString(expectedPrev)
+            objectMapper.writeValueAsString(actualAdv2.getNext()) == objectMapper.writeValueAsString(expectedNext)
 
         where:
             endpoint = "/adventures/bulk"
@@ -281,4 +284,149 @@ class AdventureControllerSpec extends IntegrationTestBase {
             getAdventureEndpoint = "/adventures/"
             statusCode = HttpStatus.OK.value()
     }
+
+    def 'Create adventures with different types and check all stored types'() {
+
+        given:
+            // adventure type
+            def adventureType1 = "article"
+            def adventureType2 = "video"
+            def adventureType3 = "photogallery"
+            def expected = [adventureType1, adventureType2, adventureType3] as Set
+
+            // create a couple of media for the adventure
+            def media1 = AdventureMedia.builder()
+                                       .mediaType("image")
+                                       .mediaPath("/pages/adventure/location/picture-1.jpg")
+                                       .mediaUrl("http://test.com/images/pages/adventure/location/picture-1.jpg")
+                                       .title("Media title")
+                                       .alt("Media alt")
+                                       .cssClass("style-media-adventure")
+                                       .prg(1)
+                                       .active(true)
+                                       .build()
+
+            def media2 = AdventureMedia.builder()
+                                       .mediaType("image")
+                                       .mediaPath("/pages/adventure/location/picture-2.jpg")
+                                       .mediaUrl("http://test.com/images/pages/adventure/location/picture-2.jpg")
+                                       .title("Media title 2")
+                                       .alt("Media alt 2")
+                                       .cssClass("style-media-adventure")
+                                       .prg(2)
+                                       .active(true)
+                                       .build()
+
+            def media = [media1, media2] as List
+
+            // save media
+            def createdMedia = given().contentType(ContentType.JSON)
+                                      .when()
+                                      .body(objectMapper.writeValueAsString(media))
+                                      .post(createMediaEndpoint)
+                                      .then()
+                                      .statusCode(statusCode)
+                                      .extract().body().asString()
+            def adventureMediaListTypeRef = new TypeReference<List<AdventureMedia>>(){}
+            def adventureMediaListCreated = objectMapper.readValue(createdMedia, adventureMediaListTypeRef)
+
+            // create adventure
+            def adventure = Adventure.builder()
+                                     .articleUniquePath("/adventure/article-1.html")
+                                     .title("Adventure title")
+                                     .category("adventure")
+                                     .section("section")
+                                     .tag("tag")
+                                     .keywords("keyword1, keyword2, keyword3")
+                                     .cssClass("style-adventure")
+                                     .image("http://test.com/images/pages/adventure/article-1-cover.jpg")
+                                     .icon("http://test.com/images/pages/adventure/icon-article-1-cover.jpg")
+                                     .altImage("Alt article")
+                                     .articleUrl("http://test.com/adventure/rafting/article-1.html")
+                                     .description("Article description")
+                                     .adventureType(adventureType1)
+                                     .staticUrl("http://test.com/static/pages/adventure/article-1.html")
+                                     .viewType("article")
+                                     .mediaCssClass("article-style")
+                                     .active(true)
+                                     .prg(1)
+                                     .adventureMedia(adventureMediaListCreated)
+                                     .build()
+        and:
+            // create a new adventure re-using same previous media
+            def adventure2 = Adventure.builder()
+                                      .articleUniquePath("/adventure/article-1.html")
+                                      .title("Adventure title")
+                                      .category("adventure")
+                                      .section("section")
+                                      .tag("tag")
+                                      .keywords("keyword1, keyword2, keyword3")
+                                      .cssClass("style-adventure")
+                                      .image("http://test.com/images/pages/adventure/article-1-cover.jpg")
+                                      .icon("http://test.com/images/pages/adventure/icon-article-1-cover.jpg")
+                                      .altImage("Alt article")
+                                      .articleUrl("http://test.com/adventure/rafting/article-1.html")
+                                      .description("Article description")
+                                      .adventureType(adventureType2)
+                                      .staticUrl("http://test.com/static/pages/adventure/article-1.html")
+                                      .viewType("article")
+                                      .mediaCssClass("article-style")
+                                      .active(true)
+                                      .prg(1)
+                                      .adventureMedia(adventureMediaListCreated)
+                                      .build()
+        and:
+            // create a new adventure re-using same previous media
+            def adventure3 = Adventure.builder()
+                                      .articleUniquePath("/adventure/article-1.html")
+                                      .title("Adventure title")
+                                      .category("adventure")
+                                      .section("section")
+                                      .tag("tag")
+                                      .keywords("keyword1, keyword2, keyword3")
+                                      .cssClass("style-adventure")
+                                      .image("http://test.com/images/pages/adventure/article-1-cover.jpg")
+                                      .icon("http://test.com/images/pages/adventure/icon-article-1-cover.jpg")
+                                      .altImage("Alt article")
+                                      .articleUrl("http://test.com/adventure/rafting/article-1.html")
+                                      .description("Article description")
+                                      .adventureType(adventureType3)
+                                      .staticUrl("http://test.com/static/pages/adventure/article-1.html")
+                                      .viewType("article")
+                                      .mediaCssClass("article-style")
+                                      .active(true)
+                                      .prg(1)
+                                      .adventureMedia(adventureMediaListCreated)
+                                      .build()
+
+            def adventures = [adventure, adventure2, adventure3] as List
+
+            // save all of them
+            given().contentType(ContentType.JSON)
+                   .when()
+                   .body(objectMapper.writeValueAsString(adventures))
+                   .post(adventureBulkEndpoint)
+                   .then()
+                   .statusCode(statusCode)
+                   .extract().body().asString()
+
+        expect:
+            def actual = given().contentType(ContentType.JSON)
+                                .when()
+                                .get(endpoint)
+                                .then()
+                                .statusCode(statusCode)
+                                .extract().body().asString()
+            def adventureTypesTypeRef = new TypeReference<Set<String>>(){}
+            def actualAdventureTypes = (Set<String>) objectMapper.readValue(actual, adventureTypesTypeRef)
+
+            expected == actualAdventureTypes
+
+        where:
+            adventureBulkEndpoint = "/adventures/bulk"
+            endpoint = "/adventures/types"
+            createMediaEndpoint = "/adventures/media/bulk"
+            statusCode = HttpStatus.OK.value()
+    }
+
 }

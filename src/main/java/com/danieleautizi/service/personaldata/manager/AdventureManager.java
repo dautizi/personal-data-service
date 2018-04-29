@@ -3,6 +3,7 @@ package com.danieleautizi.service.personaldata.manager;
 import com.danieleautizi.service.personaldata.model.presentation.Adventure;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Manager for {@link Adventure} operations.
@@ -62,4 +63,9 @@ public interface AdventureManager {
      */
     void delete(final String adventureId);
 
+    /**
+     * Get all adventure types
+     * @return List<String> types
+     */
+    Set<String> getAdventureTypes();
 }

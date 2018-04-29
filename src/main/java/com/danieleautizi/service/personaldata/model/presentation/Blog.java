@@ -42,4 +42,7 @@ public class Blog {
 
     private ZonedDateTime datetime;
     private ZonedDateTime lastUpdate;
+
+    private Blog prev;
+    private Blog next;
 }

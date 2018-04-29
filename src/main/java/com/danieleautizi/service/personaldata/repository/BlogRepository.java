@@ -13,4 +13,5 @@ public interface BlogRepository extends MongoRepository<Blog, ObjectId> {
 
     List<Blog> findBlogsByActiveOrderByPrgAsc(final boolean active);
 
+    Blog findFirstByActiveIsTrueAndPrg(final int prg);
 }

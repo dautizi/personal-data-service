@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface AdventureRepository extends MongoRepository<Adventure, ObjectId> {
+public interface AdventureRepository extends MongoRepository<Adventure, ObjectId>, AdventureRepositoryCustom {
 
     List<Adventure> findAdventuresByIdInOrderByPrgAsc(final List<ObjectId> adventureIds);
 

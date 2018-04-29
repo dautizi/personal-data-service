@@ -19,7 +19,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/blog")
+@RequestMapping("/blogs")
 public class BlogController {
 
     @Autowired

@@ -10,6 +10,7 @@ import com.danieleautizi.service.personaldata.exception.BadRequestException;
 import com.danieleautizi.service.personaldata.exception.NotFoundException;
 import com.danieleautizi.service.personaldata.model.presentation.Blog;
 import com.danieleautizi.service.personaldata.repository.BlogRepository;
+import com.danieleautizi.service.personaldata.utility.BlogConverter;
 import com.danieleautizi.service.personaldata.utility.PersonalDataUtil;
 
 import lombok.NonNull;
@@ -42,7 +43,13 @@ public class BlogManagerImpl implements BlogManager {
     @Override
     public Blog getBlogById(final String blogId) {
 
-        return entityToPresentation(blogRepository.findOne(stringToObject(blogId)));
+        val blogEntity = blogRepository.findOne(stringToObject(blogId));
+        if (blogEntity == null) {
+
+            throw new NotFoundException(personalDataUtil.getMessage(BLOG_NOT_FOUND_MESSAGE, blogId));
+        }
+
+        return convertAndEnrichBlog(blogEntity);
     }
 
     /**
@@ -73,7 +80,15 @@ public class BlogManagerImpl implements BlogManager {
     @Override
     public List<Blog> getActiveBlogs() {
 
-        return entitiesToPresentation(blogRepository.findBlogsByActiveOrderByPrgAsc(true));
+        val blogEntities = blogRepository.findBlogsByActiveOrderByPrgAsc(true);
+        if (blogEntities == null) {
+
+            return null;
+        }
+
+        return blogEntities.stream()
+                           .map(blogEntity -> convertAndEnrichBlog(blogEntity))
+                           .collect(Collectors.toList());
     }
 
     /**
@@ -141,4 +156,19 @@ public class BlogManagerImpl implements BlogManager {
         blogRepository.delete(stringToObject(blogId));
     }
 
+    private Blog convertAndEnrichBlog(final com.danieleautizi.service.personaldata.model.entity.Blog blogEntity) {
+
+        val blogPresentation = BlogConverter.entityToPresentation(blogEntity);
+        val prg = blogEntity.getPrg();
+        if (prg > 1) {
+
+            val prev = BlogConverter.entityToPresentation(blogRepository.findFirstByActiveIsTrueAndPrg(prg - 1));
+            blogPresentation.setPrev(prev);
+        }
+
+        val next = BlogConverter.entityToPresentation(blogRepository.findFirstByActiveIsTrueAndPrg(prg + 1));
+        blogPresentation.setNext(next);
+
+        return blogPresentation;
+    }
 }

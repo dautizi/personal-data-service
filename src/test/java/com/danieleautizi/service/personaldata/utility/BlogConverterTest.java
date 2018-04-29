@@ -29,14 +29,14 @@ public class BlogConverterTest {
     private static final String SECTION = "Section";
     private static final String TAG = "Tag1";
     private static final String KEYWORDS = "Key1, Key2, Key3";
-    private static final String CSS_CLASS = "style-adventure";
+    private static final String CSS_CLASS = "style-blog";
     private static final String IMAGE = "http://test.com/images/picture-1.jpg";
     private static final String ICON = "http://test.com/images/picture-1-icon.jpg";
     private static final String ALT_IMAGE = "Alt image";
-    private static final String URL = "http://test.com/adventure/adventure-1.html";
-    private static final String DESCRIPTION = "Description about adventure.";
+    private static final String URL = "http://test.com/adventure/blog-1.html";
+    private static final String DESCRIPTION = "Description about blog.";
     private static final String TYPE = "Type";
-    private static final String STATIC_URL = "http://test.com/static/adventure/adventure-1.html";
+    private static final String STATIC_URL = "http://test.com/static/blog/blog-1.html";
     private static final String VIEW_TYPE = "view";
     private static final String MEDIA_CSS_CLASS = "media-css-style";
 
@@ -59,7 +59,6 @@ public class BlogConverterTest {
                                                                                      .articleUrl(URL)
                                                                                      .description(DESCRIPTION)
                                                                                      .staticUrl(STATIC_URL)
-                                                                                     .description(DESCRIPTION)
                                                                                      .blogType(TYPE)
                                                                                      .viewType(VIEW_TYPE)
                                                                                      .mediaCssClass(MEDIA_CSS_CLASS)
