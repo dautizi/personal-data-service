@@ -25,6 +25,7 @@ public class Education {
     private String description;
     private String schoolImage;
     private String schoolThumb;
+    private String period;
     private String startYear;
     private String endYear;
 

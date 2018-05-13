@@ -29,6 +29,7 @@ public class SkillConverter {
                                                                           .title(skill.getTitle())
                                                                           .progress(skill.getProgress())
                                                                           .percentage(skill.getPercentage())
+                                                                          .years(getYears(skill.getYears()))
                                                                           .since(localDateTimeOrNull(skill.getSince()))
                                                                           .imageUrl(skill.getImageUrl())
                                                                           .active(skill.isActive())
@@ -48,7 +49,7 @@ public class SkillConverter {
                       .title(skillEntity.getTitle())
                       .progress(skillEntity.getProgress())
                       .percentage(skillEntity.getPercentage())
-                      .years(DateTimeUtil.getYearsDifference(skillEntity.getSince()))
+                      .years(getYears(skillEntity))
                       .since(skillEntity.getSince()
                                         .atZone(ZoneOffset.UTC))
                       .imageUrl(skillEntity.getImageUrl())
@@ -70,4 +71,17 @@ public class SkillConverter {
                               .collect(Collectors.toList());
     }
 
+    private int getYears(final Integer years) {
+
+        return years != null && years.intValue() > 0
+               ? years.intValue()
+               : 0;
+    }
+
+    private int getYears(final com.danieleautizi.service.personaldata.model.entity.Skill skillEntity) {
+
+        return skillEntity.getYears().intValue() > 0
+               ? skillEntity.getYears().intValue()
+               : DateTimeUtil.getYearsDifference(skillEntity.getSince());
+    }
 }

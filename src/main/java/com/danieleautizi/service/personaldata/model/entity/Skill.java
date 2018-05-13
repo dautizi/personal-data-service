@@ -27,6 +27,7 @@ public class Skill {
     private String title;
     private Integer progress;
     private Integer percentage;
+    private Integer years;
     private LocalDateTime since;
     private String imageUrl;
 
