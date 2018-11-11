@@ -42,6 +42,7 @@ public class SkillConverterTest {
                                                                                       .title(TITLE)
                                                                                       .progress(PROGRESS)
                                                                                       .percentage(PERCENTAGE)
+                                                                                      .years(YEARS)
                                                                                       .since(SINCE.toLocalDateTime())
                                                                                       .imageUrl(IMAGE_URL)
                                                                                       .active(ACTIVE)
@@ -50,21 +51,21 @@ public class SkillConverterTest {
                                                                                       .lastUpdate(LAST_UPDATE.toLocalDateTime())
                                                                                       .build();
 
-        val actualSkill = Skill.builder()
-                               .groupName(GROUP_NAME)
-                               .title(TITLE)
-                               .progress(PROGRESS)
-                               .percentage(PERCENTAGE)
-                               .years(YEARS)
-                               .since(SINCE)
-                               .imageUrl(IMAGE_URL)
-                               .active(ACTIVE)
-                               .prg(PRG)
-                               .datetime(DATETIME)
-                               .lastUpdate(LAST_UPDATE)
-                               .build();
+        val actualSkill = SkillConverter.presentationToEntity(Skill.builder()
+                                                                   .groupName(GROUP_NAME)
+                                                                   .title(TITLE)
+                                                                   .progress(PROGRESS)
+                                                                   .percentage(PERCENTAGE)
+                                                                   .years(YEARS)
+                                                                   .since(SINCE)
+                                                                   .imageUrl(IMAGE_URL)
+                                                                   .active(ACTIVE)
+                                                                   .prg(PRG)
+                                                                   .datetime(DATETIME)
+                                                                   .lastUpdate(LAST_UPDATE)
+                                                                   .build());
 
-        assertEquals(expectedEntity, SkillConverter.presentationToEntity(actualSkill));
+        assertEquals(expectedEntity, actualSkill);
     }
 
     @Test
@@ -84,19 +85,20 @@ public class SkillConverterTest {
                                  .lastUpdate(LAST_UPDATE)
                                  .build();
 
-        val actualEntity = com.danieleautizi.service.personaldata.model.entity.Skill.builder()
+        val actualEntity = SkillConverter.entityToPresentation(com.danieleautizi.service.personaldata.model.entity.Skill.builder()
                                                                                     .groupName(GROUP_NAME)
                                                                                     .title(TITLE)
                                                                                     .progress(PROGRESS)
                                                                                     .percentage(PERCENTAGE)
+                                                                                    .years(YEARS)
                                                                                     .since(SINCE.toLocalDateTime())
                                                                                     .imageUrl(IMAGE_URL)
                                                                                     .active(ACTIVE)
                                                                                     .prg(PRG)
                                                                                     .datetime(DATETIME.toLocalDateTime())
                                                                                     .lastUpdate(LAST_UPDATE.toLocalDateTime())
-                                                                                    .build();
+                                                                                    .build());
 
-        assertEquals(expectedSkill, SkillConverter.entityToPresentation(actualEntity));
+        assertEquals(expectedSkill, actualEntity);
     }
 }

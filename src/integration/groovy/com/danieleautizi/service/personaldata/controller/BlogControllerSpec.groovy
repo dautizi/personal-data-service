@@ -64,6 +64,8 @@ class BlogControllerSpec extends IntegrationTestBase {
             def blogTypeRef = new TypeReference<Blog>(){}
             def blogListTypeRef = new TypeReference<List<Blog>>(){}
 
+            wipeBlogs()
+
             // create blog 1
             def blog1 = Blog.builder()
                             .title("Title")
@@ -173,4 +175,8 @@ class BlogControllerSpec extends IntegrationTestBase {
             statusCode = HttpStatus.OK.value()
     }
 
+    void wipeBlogs() {
+
+        blogRepository.deleteAll()
+    }
 }

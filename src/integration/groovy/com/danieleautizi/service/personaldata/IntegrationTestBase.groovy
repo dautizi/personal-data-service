@@ -16,6 +16,9 @@ import com.danieleautizi.service.personaldata.manager.EducationManager
 import com.danieleautizi.service.personaldata.manager.ImageManager
 import com.danieleautizi.service.personaldata.manager.SkillManager
 import com.danieleautizi.service.personaldata.manager.WorkExperienceManager
+import com.danieleautizi.service.personaldata.repository.AdventureMediaRepository
+import com.danieleautizi.service.personaldata.repository.AdventureRepository
+import com.danieleautizi.service.personaldata.repository.BlogRepository
 import com.danieleautizi.service.personaldata.utility.DateTimeUtil
 import com.fasterxml.jackson.databind.ObjectMapper
 import groovy.util.logging.Slf4j
@@ -45,11 +48,15 @@ class IntegrationTestBase extends Specification {
     protected final AdventureController adventureController
     @Autowired
     protected final AdventureManager adventureManager
+    @Autowired
+    protected final AdventureRepository adventureRepository
 
     @Autowired
     protected final AdventureMediaController adventureMediaController
     @Autowired
     protected final AdventureMediaManager adventureMediaManager
+    @Autowired
+    protected final AdventureMediaRepository adventureMediaRepository
 
     @Autowired
     protected final ArticleController articleController
@@ -60,6 +67,8 @@ class IntegrationTestBase extends Specification {
     protected final BlogController blogController
     @Autowired
     protected final BlogManager blogManager
+    @Autowired
+    protected final BlogRepository blogRepository
 
     @Autowired
     protected final EducationController educationController
