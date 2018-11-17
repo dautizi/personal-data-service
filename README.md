@@ -1,5 +1,5 @@
 # Personal Data Service
-<img src="https://github.com/simple-icons/simple-icons/blob/develop/icons/java.svg" width="30" height="30">   Python script to migrate repo from MySql to MongoDB. 
+<img src="https://github.com/simple-icons/simple-icons/blob/develop/icons/java.svg" width="30" height="30">   Springboot micro service ready to run. 
 
 # Story [![](https://img.shields.io/badge/apache-springboot-brightgreen.svg)]() [![](https://img.shields.io/badge/language-java-yellow.svg)]() [![](https://img.shields.io/badge/repository-mongoDB-green.svg)]()
 > Time to migrate towards a Micro Services world!
