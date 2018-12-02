@@ -73,7 +73,7 @@ public class SkillManagerImpl implements SkillManager {
     @Override
     public List<Skill> getActiveSkills() {
 
-        return entitiesToPresentation(skillRepository.findSkillsByActiveOrderByPrgAsc(true));
+        return entitiesToPresentation(skillRepository.findSkillsByActiveOrderByGroupPrgAscPrgAsc(true));
     }
 
     /**

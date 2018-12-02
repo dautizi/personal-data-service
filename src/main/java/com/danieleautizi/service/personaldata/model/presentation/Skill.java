@@ -19,6 +19,8 @@ public class Skill {
     private String id;
 
     private String groupName;
+    private int groupPrg;
+
     private String title;
     private Integer progress;
     private Integer percentage;

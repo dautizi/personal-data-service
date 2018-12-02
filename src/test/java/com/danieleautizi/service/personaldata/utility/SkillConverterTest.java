@@ -26,6 +26,7 @@ public class SkillConverterTest {
     private static final ZonedDateTime LAST_UPDATE = DATETIME.plusMonths(6);
 
     private static final String GROUP_NAME = "Languages";
+    private static final int GROUP_PRG = 1;
     private static final String TITLE = "Java";
     private static final Integer PROGRESS = 75;
     private static final Integer PERCENTAGE = 75;
@@ -39,6 +40,7 @@ public class SkillConverterTest {
 
         val expectedEntity = com.danieleautizi.service.personaldata.model.entity.Skill.builder()
                                                                                       .groupName(GROUP_NAME)
+                                                                                      .groupPrg(GROUP_PRG)
                                                                                       .title(TITLE)
                                                                                       .progress(PROGRESS)
                                                                                       .percentage(PERCENTAGE)
@@ -53,6 +55,7 @@ public class SkillConverterTest {
 
         val actualSkill = SkillConverter.presentationToEntity(Skill.builder()
                                                                    .groupName(GROUP_NAME)
+                                                                   .groupPrg(GROUP_PRG)
                                                                    .title(TITLE)
                                                                    .progress(PROGRESS)
                                                                    .percentage(PERCENTAGE)
@@ -73,6 +76,7 @@ public class SkillConverterTest {
 
         val expectedSkill = Skill.builder()
                                  .groupName(GROUP_NAME)
+                                 .groupPrg(GROUP_PRG)
                                  .title(TITLE)
                                  .progress(PROGRESS)
                                  .percentage(PERCENTAGE)
@@ -87,6 +91,7 @@ public class SkillConverterTest {
 
         val actualEntity = SkillConverter.entityToPresentation(com.danieleautizi.service.personaldata.model.entity.Skill.builder()
                                                                                     .groupName(GROUP_NAME)
+                                                                                    .groupPrg(GROUP_PRG)
                                                                                     .title(TITLE)
                                                                                     .progress(PROGRESS)
                                                                                     .percentage(PERCENTAGE)

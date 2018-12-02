@@ -9,6 +9,7 @@ import static com.danieleautizi.service.personaldata.utility.DateTimeUtil.utcZon
 import com.danieleautizi.service.personaldata.exception.BadRequestException;
 import com.danieleautizi.service.personaldata.exception.NotFoundException;
 import com.danieleautizi.service.personaldata.model.presentation.Adventure;
+import com.danieleautizi.service.personaldata.model.presentation.AdventureMedia;
 import com.danieleautizi.service.personaldata.repository.AdventureRepository;
 import com.danieleautizi.service.personaldata.utility.PersonalDataUtil;
 
@@ -28,6 +29,9 @@ public class AdventureManagerImpl implements AdventureManager {
 
     @NonNull
     private AdventureRepository adventureRepository;
+
+    @NonNull
+    private AdventureMediaManager adventureMediaManager;
 
     @NonNull
     private final PersonalDataUtil personalDataUtil;
@@ -165,6 +169,11 @@ public class AdventureManagerImpl implements AdventureManager {
         return adventureRepository.findAllAdventureTypes();
     }
 
+    private List<AdventureMedia> fetchAdventureMedia(final List<String> adventureMediaIds) {
+
+        return adventureMediaManager.getAdventureMediaByIds(adventureMediaIds);
+    }
+
     private Adventure convertAndEnrichAdventure(final com.danieleautizi.service.personaldata.model.entity.Adventure adventureEntity) {
 
         val adventurePresentation = entityToPresentation(adventureEntity);
@@ -177,6 +186,14 @@ public class AdventureManagerImpl implements AdventureManager {
 
         val next = entityToPresentation(adventureRepository.findFirstByActiveIsTrueAndPrg(prg + 1));
         adventurePresentation.setNext(next);
+
+        // fetch adventure media
+        val adventureMediaIds = adventurePresentation.getAdventureMedia()
+                                                     .stream()
+                                                     .map(adventureMedia -> adventureMedia.getId())
+                                                     .collect(Collectors.toList());
+        val adventureMediaList = fetchAdventureMedia(adventureMediaIds);
+        adventurePresentation.setAdventureMedia(adventureMediaList);
 
         return adventurePresentation;
     }

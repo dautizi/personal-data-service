@@ -11,6 +11,6 @@ public interface SkillRepository extends MongoRepository<Skill, ObjectId> {
 
     List<Skill> findSkillsByIdInOrderByPrgAsc(final List<ObjectId> skillIds);
 
-    List<Skill> findSkillsByActiveOrderByPrgAsc(final boolean active);
+    List<Skill> findSkillsByActiveOrderByGroupPrgAscPrgAsc(final boolean active);
 
 }

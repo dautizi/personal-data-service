@@ -17,6 +17,7 @@ class SkillControllerSpec extends IntegrationTestBase {
         given:
             def skillToCreate = Skill.builder()
                                      .groupName("Languages")
+                                     .groupPrg(1)
                                      .title("Java")
                                      .progress(100)
                                      .percentage(100)
@@ -57,6 +58,7 @@ class SkillControllerSpec extends IntegrationTestBase {
 
             def skillToCreate = Skill.builder()
                                      .groupName("Languages")
+                                     .groupPrg(1)
                                      .title("Java")
                                      .progress(100)
                                      .percentage(100)
@@ -114,6 +116,7 @@ class SkillControllerSpec extends IntegrationTestBase {
 
             def skillToCreate = Skill.builder()
                                      .groupName("Languages")
+                                     .groupPrg(1)
                                      .title("Java")
                                      .progress(70)
                                      .percentage(70)

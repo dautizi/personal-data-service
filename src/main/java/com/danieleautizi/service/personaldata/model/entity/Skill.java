@@ -24,6 +24,9 @@ public class Skill {
 
     @Indexed
     private String groupName;
+    @Indexed
+    private int groupPrg;
+
     private String title;
     private Integer progress;
     private Integer percentage;

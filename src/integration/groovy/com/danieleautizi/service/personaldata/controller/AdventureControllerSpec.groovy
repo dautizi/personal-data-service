@@ -415,6 +415,8 @@ class AdventureControllerSpec extends IntegrationTestBase {
                                                                                        .cssClass(MEDIA_CSS_CLASS)
                                                                                        .prg(1)
                                                                                        .active(true)
+                                                                                       .datetime(FIXED_TODAY.toLocalDateTime())
+                                                                                       .lastUpdate(FIXED_TODAY.toLocalDateTime())
                                                                                        .build()
 
         def media2 = com.danieleautizi.service.personaldata.model.entity.AdventureMedia.builder()
@@ -427,6 +429,8 @@ class AdventureControllerSpec extends IntegrationTestBase {
                                                                                        .cssClass(MEDIA_CSS_CLASS)
                                                                                        .prg(1)
                                                                                        .active(true)
+                                                                                       .datetime(FIXED_TODAY.toLocalDateTime())
+                                                                                       .lastUpdate(FIXED_TODAY.toLocalDateTime())
                                                                                        .build()
 
         def media3 = com.danieleautizi.service.personaldata.model.entity.AdventureMedia.builder()
@@ -439,6 +443,8 @@ class AdventureControllerSpec extends IntegrationTestBase {
                                                                                        .cssClass(MEDIA_CSS_CLASS)
                                                                                        .prg(1)
                                                                                        .active(true)
+                                                                                       .datetime(FIXED_TODAY.toLocalDateTime())
+                                                                                       .lastUpdate(FIXED_TODAY.toLocalDateTime())
                                                                                        .build()
 
         adventureMediaRepository.save(media1)
