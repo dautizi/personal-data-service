@@ -2,8 +2,6 @@ package com.danieleautizi.service.personaldata.controller
 
 import com.danieleautizi.service.personaldata.IntegrationTestBase
 import com.danieleautizi.service.personaldata.model.presentation.Education
-import com.danieleautizi.service.personaldata.model.presentation.Image
-import com.fasterxml.jackson.core.type.TypeReference
 import io.restassured.http.ContentType
 import org.springframework.http.HttpStatus
 import spock.lang.Unroll
@@ -47,8 +45,7 @@ class EducationControllerSpec extends IntegrationTestBase {
                                 .statusCode(statusCode)
                                 .extract().body().asString()
 
-            def educationTypeRef = new TypeReference<Education>(){}
-            def educationCreated = (Education) objectMapper.readValue(actual, educationTypeRef)
+            def educationCreated = objectMapper.readValue(actual, Education.class)
 
             // search the education we created
             def stored = educationManager.getEducationById(educationCreated.getId())
@@ -64,8 +61,6 @@ class EducationControllerSpec extends IntegrationTestBase {
     def 'Create a new education, get and delete it by service'() {
 
         given:
-            def educationTypeRef = new TypeReference<Education>(){}
-
             def title = "Software Engineering"
             def school = "La Sapienza University"
             def description = "Description for a specific education experience."
@@ -96,7 +91,7 @@ class EducationControllerSpec extends IntegrationTestBase {
                                 .statusCode(statusCode)
                                 .extract().body().asString()
 
-            def educationCreated = (Education) objectMapper.readValue(actual, educationTypeRef)
+            def educationCreated = objectMapper.readValue(actual, Education.class)
             def idCreated = educationCreated.getId()
 
             def getAndDeleteEndpoint = "${createEndpoint}${idCreated}"
@@ -131,8 +126,6 @@ class EducationControllerSpec extends IntegrationTestBase {
     def 'Create and update an education'() {
 
         given:
-            def educationTypeRef = new TypeReference<Education>(){}
-
             def title = "Software Engineering"
             def school = "La Sapienza University"
             def description = "Description for a specific education experience."
@@ -163,7 +156,7 @@ class EducationControllerSpec extends IntegrationTestBase {
                                 .statusCode(statusCode)
                                 .extract().body().asString()
 
-            def educationCreated = (Education) objectMapper.readValue(actual, educationTypeRef)
+            def educationCreated = objectMapper.readValue(actual, Education.class)
             def idCreated = educationCreated.getId()
 
         expect:

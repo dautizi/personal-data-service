@@ -2,7 +2,6 @@ package com.danieleautizi.service.personaldata.controller
 
 import com.danieleautizi.service.personaldata.IntegrationTestBase
 import com.danieleautizi.service.personaldata.model.presentation.AdventureMedia
-import com.fasterxml.jackson.core.type.TypeReference
 import io.restassured.http.ContentType
 import org.springframework.http.HttpStatus
 import spock.lang.Unroll
@@ -15,8 +14,6 @@ class AdventureMediaControllerSpec extends IntegrationTestBase {
     def 'Create a new adventure media through #endpoint and check if it has been successfully created'() {
 
         given:
-            def adventureMediaTypeRef = new TypeReference<AdventureMedia>(){}
-
             def mediaType = "image"
             def mediaPath = "/pages/adventure/location/picture-1.jpg"
             def mediaUrl = "http://test.com/images/pages/adventure/location/picture-1.jpg"
@@ -44,7 +41,7 @@ class AdventureMediaControllerSpec extends IntegrationTestBase {
                                 .then()
                                 .statusCode(statusCode)
                                 .extract().body().asString()
-            def adventureMediaCreated = (AdventureMedia) objectMapper.readValue(actual, adventureMediaTypeRef)
+            def adventureMediaCreated = objectMapper.readValue(actual, AdventureMedia.class)
 
             // search the adventureMedia we created
             def stored = adventureMediaManager.getAdventureMediaById(adventureMediaCreated.getId())
@@ -60,8 +57,6 @@ class AdventureMediaControllerSpec extends IntegrationTestBase {
     def 'Create a new adventure media, get and delete it by service'() {
 
         given:
-            def adventureMediaTypeRef = new TypeReference<AdventureMedia>(){}
-
             def mediaType = "image"
             def mediaPath = "/pages/adventure/location/picture-1.jpg"
             def mediaUrl = "http://test.com/images/pages/adventure/location/picture-1.jpg"
@@ -88,7 +83,7 @@ class AdventureMediaControllerSpec extends IntegrationTestBase {
                                 .then()
                                 .statusCode(statusCode)
                                 .extract().body().asString()
-            def adventureMediaCreated = (AdventureMedia) objectMapper.readValue(actual, adventureMediaTypeRef)
+            def adventureMediaCreated = objectMapper.readValue(actual, AdventureMedia.class)
             def idCreated = adventureMediaCreated.getId()
 
             def getAndDeleteEndpoint = "${createEndpoint}${idCreated}"
@@ -123,8 +118,6 @@ class AdventureMediaControllerSpec extends IntegrationTestBase {
     def 'Create and update an adventure media'() {
 
         given:
-            def adventureMediaTypeRef = new TypeReference<AdventureMedia>(){}
-
             def mediaType = "image"
             def mediaPath = "/pages/adventure/location/picture-1.jpg"
             def mediaUrl = "http://test.com/images/pages/adventure/location/picture-1.jpg"
@@ -152,7 +145,7 @@ class AdventureMediaControllerSpec extends IntegrationTestBase {
                                 .statusCode(statusCode)
                                 .extract().body().asString()
 
-            def adventureMediaCreated = (AdventureMedia) objectMapper.readValue(actual, adventureMediaTypeRef)
+            def adventureMediaCreated = objectMapper.readValue(actual, AdventureMedia.class)
             def idCreated = adventureMediaCreated.getId()
 
         expect:

@@ -128,7 +128,6 @@ class AdventureControllerSpec extends IntegrationTestBase {
     def 'Create 3 adventures and check if prev/next are properly set'() {
 
         given:
-            def adventureTypeRef = new TypeReference<Adventure>(){}
             def adventureListTypeRef = new TypeReference<List<Adventure>>(){}
 
             wipeAdventures()
@@ -236,7 +235,7 @@ class AdventureControllerSpec extends IntegrationTestBase {
                               .then()
                               .statusCode(statusCode)
                               .extract().body().asString()
-            def actualAdv2 = (Adventure) objectMapper.readValue(adv2, adventureTypeRef)
+            def actualAdv2 = objectMapper.readValue(adv2, Adventure.class)
 
             // get previous expected adventure and wipe next and prev for it
             def expectedPrev = adventureManager.getAdventureById(actualCreated.get(0).getId())

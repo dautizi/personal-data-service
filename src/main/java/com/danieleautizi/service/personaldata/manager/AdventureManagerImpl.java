@@ -1,6 +1,5 @@
 package com.danieleautizi.service.personaldata.manager;
 
-import static com.danieleautizi.service.personaldata.utility.AdventureConverter.entitiesToPresentation;
 import static com.danieleautizi.service.personaldata.utility.AdventureConverter.entityToPresentation;
 import static com.danieleautizi.service.personaldata.utility.AdventureConverter.presentationToEntity;
 import static com.danieleautizi.service.personaldata.utility.MongoUtils.stringToObject;
@@ -18,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.val;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Set;
@@ -64,7 +64,10 @@ public class AdventureManagerImpl implements AdventureManager {
     @Override
     public List<Adventure> getAdventureByIds(final List<String> adventureIds) {
 
-        return entitiesToPresentation(adventureRepository.findAdventuresByIdInOrderByPrgAsc(stringToObject(adventureIds)));
+        val adventureEntities = adventureRepository.findAdventuresByIdInOrderByPrgAsc(stringToObject(adventureIds));
+        return adventureEntities.stream()
+                                .map(adventureEntity -> convertAndEnrichAdventure(adventureEntity))
+                                .collect(Collectors.toList());
     }
 
     /**
@@ -74,7 +77,10 @@ public class AdventureManagerImpl implements AdventureManager {
     @Override
     public List<Adventure> getAdventures() {
 
-        return entitiesToPresentation(adventureRepository.findAll());
+        val adventureEntities = adventureRepository.findAll();
+        return adventureEntities.stream()
+                                .map(adventureEntity -> convertAndEnrichAdventure(adventureEntity))
+                                .collect(Collectors.toList());
     }
 
     /**
@@ -106,9 +112,9 @@ public class AdventureManagerImpl implements AdventureManager {
         val now = utcZonedLocalDateTimeNow();
         adventure.setDatetime(now);
         adventure.setLastUpdate(now);
-        val adventureEntity = presentationToEntity(adventure);
 
-        return entityToPresentation(adventureRepository.save(adventureEntity));
+        val adventureEntity = adventureRepository.save(presentationToEntity(adventure));
+        return convertAndEnrichAdventure(adventureEntity);
     }
 
     /**
@@ -141,9 +147,8 @@ public class AdventureManagerImpl implements AdventureManager {
         }
 
         adventure.setLastUpdate(utcZonedLocalDateTimeNow());
-        val adventureEntity = presentationToEntity(adventure);
-
-        return entityToPresentation(adventureRepository.save(adventureEntity));
+        val adventureEntity = adventureRepository.save(presentationToEntity(adventure));
+        return convertAndEnrichAdventure(adventureEntity);
     }
 
     /**
@@ -181,20 +186,30 @@ public class AdventureManagerImpl implements AdventureManager {
         if (prg > 1) {
 
             val prev = entityToPresentation(adventureRepository.findFirstByActiveIsTrueAndPrg(prg - 1));
-            adventurePresentation.setPrev(prev);
+            adventurePresentation.setPrev(enrichWithAdventureMedia(prev));
         }
 
         val next = entityToPresentation(adventureRepository.findFirstByActiveIsTrueAndPrg(prg + 1));
-        adventurePresentation.setNext(next);
+        adventurePresentation.setNext(enrichWithAdventureMedia(next));
+
+        return enrichWithAdventureMedia(adventurePresentation);
+    }
+
+    private Adventure enrichWithAdventureMedia(final Adventure adventure) {
+
+        if (adventure == null || CollectionUtils.isEmpty(adventure.getAdventureMedia())) {
+
+            return adventure;
+        }
 
         // fetch adventure media
-        val adventureMediaIds = adventurePresentation.getAdventureMedia()
-                                                     .stream()
-                                                     .map(adventureMedia -> adventureMedia.getId())
-                                                     .collect(Collectors.toList());
+        val adventureMediaIds = adventure.getAdventureMedia()
+                                         .stream()
+                                         .map(adventureMedia -> adventureMedia.getId())
+                                         .collect(Collectors.toList());
         val adventureMediaList = fetchAdventureMedia(adventureMediaIds);
-        adventurePresentation.setAdventureMedia(adventureMediaList);
+        adventure.setAdventureMedia(adventureMediaList);
 
-        return adventurePresentation;
+        return adventure;
     }
 }

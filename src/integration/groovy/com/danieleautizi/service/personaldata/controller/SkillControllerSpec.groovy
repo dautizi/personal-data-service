@@ -2,7 +2,6 @@ package com.danieleautizi.service.personaldata.controller
 
 import com.danieleautizi.service.personaldata.IntegrationTestBase
 import com.danieleautizi.service.personaldata.model.presentation.Skill
-import com.fasterxml.jackson.core.type.TypeReference
 import io.restassured.http.ContentType
 import org.springframework.http.HttpStatus
 import spock.lang.Unroll
@@ -37,8 +36,7 @@ class SkillControllerSpec extends IntegrationTestBase {
                                 .statusCode(statusCode)
                                 .extract().body().asString()
 
-            def skillTypeRef = new TypeReference<Skill>(){}
-            def skillCreated = (Skill) objectMapper.readValue(actual, skillTypeRef)
+            def skillCreated = objectMapper.readValue(actual, Skill.class)
 
             // search the skill we created
             def stored = skillManager.getSkillById(skillCreated.getId())
@@ -54,8 +52,6 @@ class SkillControllerSpec extends IntegrationTestBase {
     def 'Create a new skill, get and delete it by service'() {
 
         given:
-            def skillTypeRef = new TypeReference<Skill>(){}
-
             def skillToCreate = Skill.builder()
                                      .groupName("Languages")
                                      .groupPrg(1)
@@ -77,7 +73,7 @@ class SkillControllerSpec extends IntegrationTestBase {
                                 .statusCode(statusCode)
                                 .extract().body().asString()
 
-            def skillCreated = (Skill) objectMapper.readValue(actual, skillTypeRef)
+            def skillCreated = objectMapper.readValue(actual, Skill.class)
             def idCreated = skillCreated.getId()
 
             def getAndDeleteEndpoint = "${createEndpoint}${idCreated}"
@@ -112,8 +108,6 @@ class SkillControllerSpec extends IntegrationTestBase {
     def 'Create and update a skill'() {
 
         given:
-            def skillTypeRef = new TypeReference<Skill>(){}
-
             def skillToCreate = Skill.builder()
                                      .groupName("Languages")
                                      .groupPrg(1)
@@ -135,7 +129,7 @@ class SkillControllerSpec extends IntegrationTestBase {
                                 .statusCode(statusCode)
                                 .extract().body().asString()
 
-            def skillCreated = (Skill) objectMapper.readValue(actual, skillTypeRef)
+            def skillCreated = objectMapper.readValue(actual, Skill.class)
             def idCreated = skillCreated.getId()
 
         expect:

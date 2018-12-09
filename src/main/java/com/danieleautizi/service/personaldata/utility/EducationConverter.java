@@ -30,6 +30,7 @@ public class EducationConverter {
                                                                               .description(education.getDescription())
                                                                               .schoolImage(education.getSchoolImage())
                                                                               .schoolThumb(education.getSchoolThumb())
+                                                                              .period(education.getPeriod())
                                                                               .startYear(education.getStartYear())
                                                                               .endYear(education.getEndYear())
 
@@ -52,6 +53,7 @@ public class EducationConverter {
                           .description(educationEntity.getDescription())
                           .schoolImage(educationEntity.getSchoolImage())
                           .schoolThumb(educationEntity.getSchoolThumb())
+                          .period(educationEntity.getPeriod())
                           .startYear(educationEntity.getStartYear())
                           .endYear(educationEntity.getEndYear())
 

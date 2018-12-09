@@ -44,8 +44,7 @@ class BlogControllerSpec extends IntegrationTestBase {
                                 .then()
                                 .statusCode(statusCode)
                                 .extract().body().asString()
-            def blogTypeRef = new TypeReference<Blog>(){}
-            def actualCreated = (Blog) objectMapper.readValue(actual, blogTypeRef)
+            def actualCreated = (Blog) objectMapper.readValue(actual, Blog.class)
 
             // search the blogMedia we created
             def stored = blogManager.getBlogById(actualCreated.getId())
@@ -61,7 +60,6 @@ class BlogControllerSpec extends IntegrationTestBase {
     def 'Create 3 blogs and check if prev/next are properly set'() {
 
         given:
-            def blogTypeRef = new TypeReference<Blog>(){}
             def blogListTypeRef = new TypeReference<List<Blog>>(){}
 
             wipeBlogs()
@@ -154,7 +152,7 @@ class BlogControllerSpec extends IntegrationTestBase {
                               .then()
                               .statusCode(statusCode)
                               .extract().body().asString()
-            def actualBlog2 = (Blog) objectMapper.readValue(blg2, blogTypeRef)
+            def actualBlog2 = objectMapper.readValue(blg2, Blog.class)
 
             // get previous expected blog and wipe next and prev for it
             def expectedPrev = blogManager.getBlogById(actualCreated.get(0).getId())

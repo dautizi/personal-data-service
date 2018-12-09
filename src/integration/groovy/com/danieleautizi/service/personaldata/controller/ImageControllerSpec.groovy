@@ -2,7 +2,6 @@ package com.danieleautizi.service.personaldata.controller
 
 import com.danieleautizi.service.personaldata.IntegrationTestBase
 import com.danieleautizi.service.personaldata.model.presentation.Image
-import com.fasterxml.jackson.core.type.TypeReference
 import io.restassured.http.ContentType
 import org.springframework.http.HttpStatus
 import spock.lang.Unroll
@@ -37,8 +36,7 @@ class ImageControllerSpec extends IntegrationTestBase {
                                 .statusCode(statusCode)
                                 .extract().body().asString()
 
-            def imageTypeRef = new TypeReference<Image>(){}
-            def imageCreated = (Image) objectMapper.readValue(actual, imageTypeRef)
+            def imageCreated = objectMapper.readValue(actual, Image.class)
 
             // search the image we created
             def stored = imageManager.getImageById(imageCreated.getId())
@@ -54,8 +52,6 @@ class ImageControllerSpec extends IntegrationTestBase {
     def 'Create a new image, get and delete it by service'() {
 
         given:
-            def imageTypeRef = new TypeReference<Image>(){}
-
             def title = "Picture 1"
             def url = "http://test.com/images/picture-1.jpg"
             def type = "picture"
@@ -77,7 +73,7 @@ class ImageControllerSpec extends IntegrationTestBase {
                                 .statusCode(statusCode)
                                 .extract().body().asString()
 
-            def imageCreated = (Image) objectMapper.readValue(actual, imageTypeRef)
+            def imageCreated = objectMapper.readValue(actual, Image.class)
             def idCreated = imageCreated.getId()
 
             def getAndDeleteEndpoint = "${createEndpoint}${idCreated}"
@@ -112,8 +108,6 @@ class ImageControllerSpec extends IntegrationTestBase {
     def 'Create and update an image'() {
 
         given:
-            def imageTypeRef = new TypeReference<Image>(){}
-
             def title = "Picture 1"
             def url = "http://test.com/images/picture-1.jpg"
             def type = "picture"
@@ -135,7 +129,7 @@ class ImageControllerSpec extends IntegrationTestBase {
                                 .statusCode(statusCode)
                                 .extract().body().asString()
 
-            def imageCreated = (Image) objectMapper.readValue(actual, imageTypeRef)
+            def imageCreated = objectMapper.readValue(actual, Image.class)
             def idCreated = imageCreated.getId()
 
         expect:

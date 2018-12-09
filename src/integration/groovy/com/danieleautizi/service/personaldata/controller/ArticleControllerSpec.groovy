@@ -71,8 +71,7 @@ class ArticleControllerSpec extends IntegrationTestBase {
                                 .then()
                                 .statusCode(statusCode)
                                 .extract().body().asString()
-            def adventureTypeRef = new TypeReference<Adventure>(){}
-            def actualCreated = (Adventure) objectMapper.readValue(actual, adventureTypeRef)
+            def actualCreated = objectMapper.readValue(actual, Adventure.class)
 
             // search the article we created
             def stored = articleManager.getArticleById(actualCreated.getId())

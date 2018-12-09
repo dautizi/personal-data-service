@@ -4,6 +4,7 @@ import com.danieleautizi.service.personaldata.controller.AdventureController
 import com.danieleautizi.service.personaldata.controller.AdventureMediaController
 import com.danieleautizi.service.personaldata.controller.ArticleController
 import com.danieleautizi.service.personaldata.controller.BlogController
+import com.danieleautizi.service.personaldata.controller.CurriculumVitaeController
 import com.danieleautizi.service.personaldata.controller.EducationController
 import com.danieleautizi.service.personaldata.controller.ImageController
 import com.danieleautizi.service.personaldata.controller.SkillController
@@ -12,6 +13,7 @@ import com.danieleautizi.service.personaldata.manager.AdventureManager
 import com.danieleautizi.service.personaldata.manager.AdventureMediaManager
 import com.danieleautizi.service.personaldata.manager.ArticleManager
 import com.danieleautizi.service.personaldata.manager.BlogManager
+import com.danieleautizi.service.personaldata.manager.CurriculumVitaeManager
 import com.danieleautizi.service.personaldata.manager.EducationManager
 import com.danieleautizi.service.personaldata.manager.ImageManager
 import com.danieleautizi.service.personaldata.manager.SkillManager
@@ -19,6 +21,7 @@ import com.danieleautizi.service.personaldata.manager.WorkExperienceManager
 import com.danieleautizi.service.personaldata.repository.AdventureMediaRepository
 import com.danieleautizi.service.personaldata.repository.AdventureRepository
 import com.danieleautizi.service.personaldata.repository.BlogRepository
+import com.danieleautizi.service.personaldata.repository.CurriculumVitaeRepository
 import com.danieleautizi.service.personaldata.utility.DateTimeUtil
 import com.fasterxml.jackson.databind.ObjectMapper
 import groovy.util.logging.Slf4j
@@ -69,6 +72,13 @@ class IntegrationTestBase extends Specification {
     protected final BlogManager blogManager
     @Autowired
     protected final BlogRepository blogRepository
+
+    @Autowired
+    protected final CurriculumVitaeController curriculumVitaeController
+    @Autowired
+    protected final CurriculumVitaeManager curriculumVitaeManager
+    @Autowired
+    protected final CurriculumVitaeRepository curriculumVitaeRepository
 
     @Autowired
     protected final EducationController educationController

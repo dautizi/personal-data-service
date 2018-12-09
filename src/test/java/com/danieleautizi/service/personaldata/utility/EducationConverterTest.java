@@ -29,6 +29,7 @@ public class EducationConverterTest {
     private static final String DESCRIPTION = "Description for a specific education experience.";
     private static final String SCHOOL_IMAGE = "http://test.com/images/school/university-1.jpg";
     private static final String SCHOOL_THUMB = "http://test.com/images/school/university-1-thumb.jpg";
+    private static final String PERIOD = "2001 - 2006";
     private static final String START_YEAR = "2001";
     private static final String END_YEAR = "2006";
     private static final boolean ACTIVE = true;
@@ -43,6 +44,7 @@ public class EducationConverterTest {
                                                                                           .description(DESCRIPTION)
                                                                                           .schoolImage(SCHOOL_IMAGE)
                                                                                           .schoolThumb(SCHOOL_THUMB)
+                                                                                          .period(PERIOD)
                                                                                           .startYear(START_YEAR)
                                                                                           .endYear(END_YEAR)
                                                                                           .prg(PRG)
@@ -57,6 +59,7 @@ public class EducationConverterTest {
                                        .description(DESCRIPTION)
                                        .schoolImage(SCHOOL_IMAGE)
                                        .schoolThumb(SCHOOL_THUMB)
+                                       .period(PERIOD)
                                        .startYear(START_YEAR)
                                        .endYear(END_YEAR)
                                        .prg(PRG)
@@ -77,6 +80,7 @@ public class EducationConverterTest {
                                          .description(DESCRIPTION)
                                          .schoolImage(SCHOOL_IMAGE)
                                          .schoolThumb(SCHOOL_THUMB)
+                                         .period(PERIOD)
                                          .startYear(START_YEAR)
                                          .endYear(END_YEAR)
                                          .prg(PRG)
@@ -91,6 +95,7 @@ public class EducationConverterTest {
                                                                                         .description(DESCRIPTION)
                                                                                         .schoolImage(SCHOOL_IMAGE)
                                                                                         .schoolThumb(SCHOOL_THUMB)
+                                                                                        .period(PERIOD)
                                                                                         .startYear(START_YEAR)
                                                                                         .endYear(END_YEAR)
                                                                                         .prg(PRG)

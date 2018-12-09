@@ -2,7 +2,6 @@ package com.danieleautizi.service.personaldata.controller
 
 import com.danieleautizi.service.personaldata.IntegrationTestBase
 import com.danieleautizi.service.personaldata.model.presentation.WorkExperience
-import com.fasterxml.jackson.core.type.TypeReference
 import io.restassured.http.ContentType
 import org.springframework.http.HttpStatus
 import spock.lang.Unroll
@@ -48,8 +47,7 @@ class WorkExperienceControllerSpec extends IntegrationTestBase {
                                 .statusCode(statusCode)
                                 .extract().body().asString()
 
-            def workExperienceTypeRef = new TypeReference<WorkExperience>(){}
-            def workExperienceCreated = (WorkExperience) objectMapper.readValue(actual, workExperienceTypeRef)
+            def workExperienceCreated = objectMapper.readValue(actual, WorkExperience.class)
 
             // search the workExperience we created
             def stored = workExperienceManager.getWorkExperienceById(workExperienceCreated.getId())
@@ -65,8 +63,6 @@ class WorkExperienceControllerSpec extends IntegrationTestBase {
     def 'Create a new workExperience, get and delete it by service'() {
 
         given:
-            def workExperienceTypeRef = new TypeReference<WorkExperience>(){}
-
             def company = "L'Espresso Group"
             def role = "Fullstack Developer"
             def description = "Description for a specific work experience."
@@ -99,7 +95,7 @@ class WorkExperienceControllerSpec extends IntegrationTestBase {
                                 .statusCode(statusCode)
                                 .extract().body().asString()
 
-            def workExperienceCreated = (WorkExperience) objectMapper.readValue(actual, workExperienceTypeRef)
+            def workExperienceCreated = objectMapper.readValue(actual, WorkExperience)
             def idCreated = workExperienceCreated.getId()
 
             def getAndDeleteEndpoint = "${createEndpoint}${idCreated}"
@@ -134,8 +130,6 @@ class WorkExperienceControllerSpec extends IntegrationTestBase {
     def 'Create and update an workExperience'() {
 
         given:
-            def workExperienceTypeRef = new TypeReference<WorkExperience>(){}
-
             def company = "L'Espresso Group"
             def role = "Fullstack Developer"
             def description = "Description for a specific work experience."
@@ -168,7 +162,7 @@ class WorkExperienceControllerSpec extends IntegrationTestBase {
                                 .statusCode(statusCode)
                                 .extract().body().asString()
 
-            def workExperienceCreated = (WorkExperience) objectMapper.readValue(actual, workExperienceTypeRef)
+            def workExperienceCreated = objectMapper.readValue(actual, WorkExperience.class)
             def idCreated = workExperienceCreated.getId()
 
         expect:
